@@ -272,3 +272,80 @@ a {
   background: var(--amber);
   color: #1a1207;
 }
+
+/* ---- The ledger: "the rest of the record" (two-tier receipts, Mehek
+   curation directive 2026-07-12). Shelf items get full cards; everything
+   else gets one quiet line: date, name, gloss, one proof. ---- */
+.ledger {
+  margin-top: 56px;
+}
+.ledger-head {
+  font-family: var(--font-text);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 0 0 14px;
+}
+.ledger-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 11px 2px;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+  transition: background 0.4s var(--ease-ui);
+}
+.ledger-row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.ledger-row.flash {
+  background: rgba(217, 102, 10, 0.08);
+}
+.ledger-date {
+  flex: 0 0 62px;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+.ledger-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ledger-name {
+  font-weight: 600;
+  color: var(--text);
+}
+.ledger-gloss {
+  color: var(--text-dim);
+}
+.ledger-proof {
+  flex: 0 0 auto;
+  display: inline-flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.ledger-link {
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--line-strong);
+  transition: color 0.25s var(--ease-ui), border-color 0.25s var(--ease-ui);
+}
+.ledger-link:hover {
+  color: var(--text);
+  border-color: var(--text);
+}
+.ledger-metric {
+  color: var(--text-dim);
+}
+@media (max-width: 640px) {
+  .ledger-row {
+    flex-wrap: wrap;
+    gap: 6px 14px;
+  }
+  .ledger-proof {
+    flex-basis: 100%;
+    white-space: normal;
+  }
+}

@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-07-12: Two-tier receipts (Mehek curation directive, shelf ratified)
+
+- **Shelf, ratified by Mehek:** exactly six full receipt cards render: RoleQuick,
+  BuildSmart, Rufescent, the earnings-drift trading system, LetterStory, and the
+  Traeco tombstone. Traeco gains a `Site` link to traeco.dev (verified live
+  2026-07-12; re-verify at ship).
+- **Ledger:** every other item renders as a one-line row under "The rest of the
+  record" (date, name, gloss with the duplicate title stripped, one proof link or
+  first metric). New `tier` field on Item; missing tier defaults to ledger.
+  Filters and `#item-slug` deep-link flash work across both tiers.
+- **Evicted until they carry external proof:** G42 AI agent and the creator
+  research corpus (guardrail rule; restore from git history when proof exists).
+  Derived counts moved automatically: 21 grid nodes, 8 live, 4 client systems.
+- Open conditions tracked in the vault plan: KodeCrafts needs a sanitized Watch
+  capture to keep its entry; graphify needs a public repo link or a dated metric
+  to keep its ledger row.
+- **Verified:** tsc clean; dev render shows 6 cards + 15 ledger rows, evicted
+  items absent, Traeco link present.
+
 ## 2026-07-12 — RoleQuick store link + design-plan alignment pass
 
 - **RoleQuick** is now published on the Chrome Web Store (confirmed live): added

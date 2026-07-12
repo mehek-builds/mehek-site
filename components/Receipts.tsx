@@ -1,8 +1,10 @@
 "use client";
-// The evidence layer below the Record: every item as a glass receipt card with
-// a fixed anatomy. Pillar filter chips (?pillar= URL state), deep-linkable
-// #item-slug targets, full keyboard path. Reverse-chron. All content is
-// server-rendered (plain fetch returns every receipt).
+// The evidence layer below the Record. TWO TIERS (Mehek curation directive,
+// 2026-07-12): shelf items (the five flagships + the Traeco tombstone) render
+// full receipt cards; everything else renders a one-line ledger row under
+// "The rest of the record". Grid nodes and counts include both tiers. Pillar
+// filter chips (?pillar= URL state) and #item-slug deep links work across
+// both. All content is server-rendered (plain fetch returns every receipt).
 import { useEffect, useMemo, useState } from "react";
 import { ITEMS, PILLARS, type Item, type Pillar } from "../content/items";
 
@@ -92,6 +94,36 @@ function Card({ item }: { item: Item }) {
   );
 }
 
+// One quiet line: date, name, gloss, one proof. The gloss is the oneLiner with
+// a leading "Title," stripped so the name never reads twice.
+function LedgerRow({ item }: { item: Item }) {
+  const stripped = item.oneLiner.startsWith(`${item.title},`)
+    ? item.oneLiner.slice(item.title.length + 1).trim()
+    : item.oneLiner;
+  const proofMetric = (!item.links || item.links.length === 0) && item.metrics?.[0];
+  return (
+    <article id={`item-${item.slug}`} className="ledger-row" data-pillar={item.pillar}>
+      <span className="ledger-date">{item.date.slice(0, 7)}</span>
+      <span className="ledger-main">
+        <span className="ledger-name">{item.title}</span>{" "}
+        <span className="ledger-gloss">{stripped}</span>
+      </span>
+      <span className="ledger-proof">
+        {item.links?.map((l) => (
+          <a key={l.url} className="ledger-link" href={l.url} target="_blank" rel="noreferrer">
+            {l.label} ↗
+          </a>
+        ))}
+        {proofMetric && (
+          <span className="ledger-metric">
+            <span className="num">{proofMetric.value}</span> {proofMetric.label.toLowerCase()}
+          </span>
+        )}
+      </span>
+    </article>
+  );
+}
+
 export default function Receipts() {
   const [active, setActive] = useState<Pillar | "all">("all");
 
@@ -134,6 +166,8 @@ export default function Receipts() {
         .sort((a, b) => b.date.localeCompare(a.date)),
     [active]
   );
+  const shelf = shown.filter((i) => i.tier === "shelf");
+  const ledger = shown.filter((i) => i.tier !== "shelf");
 
   return (
     <section className="scene receipts" id="work" aria-label="The receipts">
@@ -166,11 +200,22 @@ export default function Receipts() {
           </div>
         </div>
 
-        <div className="receipt-grid">
-          {shown.map((item) => (
-            <Card key={item.slug} item={item} />
-          ))}
-        </div>
+        {shelf.length > 0 && (
+          <div className="receipt-grid">
+            {shelf.map((item) => (
+              <Card key={item.slug} item={item} />
+            ))}
+          </div>
+        )}
+
+        {ledger.length > 0 && (
+          <div className="ledger">
+            <p className="ledger-head">The rest of the record</p>
+            {ledger.map((item) => (
+              <LedgerRow key={item.slug} item={item} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

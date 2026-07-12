@@ -32,6 +32,11 @@ export interface Item {
   clientWork?: boolean; // feeds the Leading scene "[N] client systems" count
   watch?: string; // captured demo URL (fills over time; empty at v1)
   image?: string;
+  // Curation directive (Mehek, 2026-07-12): receipts are two-tier. "shelf"
+  // renders a full receipt card (the five flagships + the Traeco tombstone,
+  // ratified by Mehek); everything else defaults to a one-line ledger row.
+  // Grid nodes and derived counts include BOTH tiers.
+  tier?: "shelf" | "ledger";
 }
 
 export interface PillarDef {
@@ -65,8 +70,8 @@ export const ITEMS: Item[] = [
     weight: 2,
     status: "role",
     metrics: [
-      { label: "Team", value: "4 people" },
       { label: "Completion lift", value: "+9.6%" },
+      { label: "Team", value: "4 people" },
     ],
   },
   {
@@ -115,6 +120,8 @@ export const ITEMS: Item[] = [
     date: "2025-03-03",
     weight: 2,
     status: "wound-down",
+    tier: "shelf",
+    links: [{ label: "Site", url: "https://traeco.dev" }],
   },
   {
     slug: "spark-sc-vp",
@@ -217,6 +224,7 @@ export const ITEMS: Item[] = [
     date: "2026-05-12",
     weight: 4,
     status: "live",
+    tier: "shelf",
     links: [{ label: "Live", url: "https://buildsmartagency.com" }],
     makingOf: [
       "Built a verified-contact outreach pipeline (Hunter + Reoon + Apollo).",
@@ -225,18 +233,9 @@ export const ITEMS: Item[] = [
       "Live client engagements sold and delivered end to end.",
     ],
   },
-  {
-    slug: "creator-corpus",
-    title: "Creator research corpus",
-    pillar: "content",
-    oneLiner: "20+ creator teardowns behind the growth playbook.",
-    description:
-      "Deep teardowns of 20+ creators with platform roadmaps, benchmarks, and a gap analysis to 1M followers: the strategy layer under @mehek.builds.",
-    date: "2026-05-25",
-    weight: 2,
-    status: "shipped",
-    metrics: [{ label: "Teardowns", value: "20+" }],
-  },
+  // EVICTED (Mehek curation directive 2026-07-12): creator-corpus and
+  // g42-agent are out until they carry externally verifiable proof (plan §5
+  // two-tier receipts, eviction rule). Restore from git history when they do.
   {
     slug: "graphify",
     title: "graphify",
@@ -253,18 +252,6 @@ export const ITEMS: Item[] = [
       "Clusters nodes into communities with an audit report.",
       "Outputs interactive HTML, used across the vault and codebases.",
     ],
-  },
-  {
-    slug: "g42-agent",
-    title: "G42 AI agent",
-    pillar: "inventions",
-    oneLiner: "An AI agent built for G42, a UAE AI group.",
-    description:
-      "Built and submitted an AI agent across three application portals for G42, a UAE AI group, with a live evaluation URL kept up through review week.",
-    date: "2026-06-11",
-    weight: 2,
-    status: "shipped",
-    metrics: [{ label: "Portal apps", value: "3" }],
   },
   {
     slug: "dubai-internship-tracker",
@@ -329,6 +316,7 @@ export const ITEMS: Item[] = [
     weight: 3,
     status: "client-engagement",
     clientWork: true,
+    tier: "shelf",
     metrics: [
       { label: "Leads sourced", value: "651" },
       { label: "Passed the quality gate", value: "370" },
@@ -367,6 +355,7 @@ export const ITEMS: Item[] = [
     date: "2026-06-29",
     weight: 3,
     status: "live",
+    tier: "shelf",
     links: [{ label: "Dashboard", url: "https://pead-dashboard.vercel.app" }],
     makingOf: [
       "Event-driven signals off post-earnings drift.",
@@ -409,6 +398,7 @@ export const ITEMS: Item[] = [
     date: "2026-07-04",
     weight: 4,
     status: "live",
+    tier: "shelf",
     metrics: [{ label: "Distribution", value: "Chrome Web Store" }],
     links: [
       { label: "Live", url: "https://role-quick-website.vercel.app" },
@@ -436,6 +426,7 @@ export const ITEMS: Item[] = [
     weight: 3,
     status: "live",
     clientWork: true,
+    tier: "shelf",
     links: [{ label: "Live", url: "https://rufescent-site.vercel.app" }],
     makingOf: [
       "GSAP ScrollTrigger scrub engine: the scroll is the camera.",
