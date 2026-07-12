@@ -467,6 +467,27 @@
   transition: opacity 0.6s var(--ease-ui);
 }
 .win-shot.loaded { opacity: 1; }
+video.win-shot { background: var(--bg-2); }
+.win-playcue {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 3;
+  font-family: var(--font-text);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: #fffdf9;
+  background: rgba(24, 20, 12, 0.62);
+  padding: 5px 11px;
+  border-radius: 999px;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease-ui);
+}
+.win-has-video:hover .win-playcue,
+.win-has-video:focus-within .win-playcue { opacity: 0; }
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .win-playcue { display: none; }
+}
 .work-more { margin-top: 10vh; color: var(--text-faint); font-family: var(--font-text); }
 
 /* ---------- Scene 4: LEADING ---------- */

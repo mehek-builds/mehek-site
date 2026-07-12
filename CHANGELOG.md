@@ -51,3 +51,12 @@ demolished (survives in git history); the data layer was kept and extended.
   narrative beats, the Leading statements, and the ember numerals. Every small
   functional label (eyebrows, buttons, chips, tags, dates, nav, terminal) moved
   to the quiet neutral sans. Disciplined two-face system per plan §5.
+
+## 2026-07-12 — Scene 3 windows play on hover (live clips)
+
+- The three motion-driven windows (RoleQuick, BuildSmart, Rufescent) now hold a
+  short muted scroll-through **clip** of the real site, recorded via Playwright
+  and compressed to small mp4s (192-480KB each). The window plays the clip on
+  hover/focus and resets to the screenshot poster at rest; reduced-motion and
+  touch keep the static poster. The PEAD dashboard stays a still. Total Scene 3
+  media ~1.4MB, within budget.

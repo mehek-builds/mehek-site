@@ -13,6 +13,7 @@ interface Win {
   url: string; // "open live"
   urlLabel: string;
   poster: string;
+  video?: string; // muted scroll-through clip; plays on hover. Poster shows at rest.
   beats: string[];
 }
 
@@ -25,6 +26,7 @@ const WINS: Win[] = [
     url: "https://role-quick-website.vercel.app",
     urlLabel: "role-quick-website.vercel.app",
     poster: "/work/rolequick.jpg",
+    video: "/work/rolequick.mp4",
     beats: ["On the Chrome Web Store", "Resume generation", "5-view dashboard"],
   },
   {
@@ -34,6 +36,7 @@ const WINS: Win[] = [
     url: "https://buildsmartagency.com",
     urlLabel: "buildsmartagency.com",
     poster: "/work/buildsmart.jpg",
+    video: "/work/buildsmart.mp4",
     beats: ["651 companies sourced", "Two-sided quality gate", "Double email verification"],
   },
   {
@@ -44,6 +47,7 @@ const WINS: Win[] = [
     url: "https://rufescent-site.vercel.app",
     urlLabel: "rufescent-site.vercel.app",
     poster: "/work/rufescent.jpg",
+    video: "/work/rufescent.mp4",
     beats: ["GSAP scrub engine", "Motion on real frames", "Shipped for a client"],
   },
   {
@@ -60,13 +64,15 @@ const WINS: Win[] = [
 
 function Window({ win, i }: { win: Win; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     return whenVisible(() => {
       const { gsap } = ensureGsap();
       const ctx = gsap.context(() => {
-        // Subtle parallax on the screenshot; entrance is handled by the
-        // robust CSS .reveal system so a stalled rAF never hides a window.
+        // Subtle parallax on the media; entrance is handled by the robust CSS
+        // .reveal system so a stalled rAF never hides a window.
         gsap.to(ref.current!.querySelector(".win-shot"), {
           yPercent: -6,
           ease: "none",
@@ -81,6 +87,19 @@ function Window({ win, i }: { win: Win; i: number }) {
       return () => ctx.revert();
     });
   }, []);
+
+  // Hover to play the scroll-through clip; reset to the poster on leave.
+  const play = () => {
+    const v = videoRef.current;
+    if (!v || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    v.play().catch(() => {});
+  };
+  const stop = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.pause();
+    v.currentTime = 0;
+  };
 
   return (
     <div className={`work-item ${i % 2 ? "work-item-alt" : ""}`} ref={ref}>
@@ -105,7 +124,13 @@ function Window({ win, i }: { win: Win; i: number }) {
         </div>
       </div>
 
-      <div className="win-frame glass reveal">
+      <div
+        className={`win-frame glass reveal ${win.video ? "win-has-video" : ""}`}
+        onMouseEnter={play}
+        onMouseLeave={stop}
+        onFocus={play}
+        onBlur={stop}
+      >
         <div className="win-bar" aria-hidden="true">
           <span className="win-dots">
             <i /> <i /> <i />
@@ -116,15 +141,35 @@ function Window({ win, i }: { win: Win; i: number }) {
           <div className="win-placeholder" aria-hidden="true">
             <span>{win.name}</span>
           </div>
-          {/* real screenshot; hidden until it loads so a missing file degrades cleanly */}
-          <img
-            className="win-shot"
-            src={win.poster}
-            alt={`${win.name} screenshot`}
-            loading="lazy"
-            onLoad={(e) => e.currentTarget.classList.add("loaded")}
-            onError={(e) => (e.currentTarget.style.display = "none")}
-          />
+          {win.video ? (
+            <>
+              {/* muted scroll-through clip; poster (the screenshot) shows at rest */}
+              <video
+                ref={videoRef}
+                className="win-shot loaded"
+                poster={win.poster}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={`${win.name} preview`}
+              >
+                <source src={win.video} type="video/mp4" />
+              </video>
+              <span className="win-playcue" aria-hidden="true">
+                ▶ hover to play
+              </span>
+            </>
+          ) : (
+            <img
+              className="win-shot"
+              src={win.poster}
+              alt={`${win.name} screenshot`}
+              loading="lazy"
+              onLoad={(e) => e.currentTarget.classList.add("loaded")}
+              onError={(e) => (e.currentTarget.style.display = "none")}
+            />
+          )}
         </div>
       </div>
     </div>
