@@ -42,3 +42,12 @@ demolished (survives in git history); the data layer was kept and extended.
 - Real screenshots into `public/work/` + `public/og.png`; PostHog; perf trim to
   <150 kB; qa-motion-recorder gate; a11y/mobile pass (Phase F).
 - Mehek sign-off on items.ts + honest note before merging `rebuild` into `main`.
+
+## 2026-07-12 — Expressive display face (Fraunces)
+
+- Swapped the display face from Space Grotesk to **Fraunces** (variable editorial
+  serif with the optical-size axis) — the creative voice. Reserved for big
+  editorial type only: headings, title cards, hero, the Record count line and
+  narrative beats, the Leading statements, and the ember numerals. Every small
+  functional label (eyebrows, buttons, chips, tags, dates, nav, terminal) moved
+  to the quiet neutral sans. Disciplined two-face system per plan §5.

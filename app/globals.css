@@ -40,7 +40,9 @@
   --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1); /* entrances, settling */
   --ease-ui: cubic-bezier(0.4, 0, 0.2, 1); /* direct interaction */
 
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  /* Expressive editorial serif — the creative voice, big type only. */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  /* Quiet neutral sans — body and every small functional label. */
   --font-text: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
 }
@@ -199,7 +201,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-display);
+  font-family: var(--font-text);
   font-size: 0.95rem;
   font-weight: 500;
   padding: 11px 20px;
@@ -225,7 +227,7 @@ a {
 }
 
 .eyebrow {
-  font-family: var(--font-display);
+  font-family: var(--font-text);
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;

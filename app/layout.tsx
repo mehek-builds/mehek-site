@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Fraunces } from "next/font/google";
 import "./globals.css";
 import "./scenes.css";
 
-const display = Space_Grotesk({
+// Expressive editorial serif (the creative voice). Variable, with the optical-
+// size axis so big headline cuts get the dramatic display shapes automatically.
+const display = Fraunces({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  axes: ["opsz"],
   variable: "--font-display-loaded",
   display: "swap",
 });
@@ -48,7 +50,7 @@ export default function RootLayout({
             __html: `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js')}}catch(e){}`,
           }}
         />
-        <style>{`:root{--font-display:var(--font-display-loaded),"Space Grotesk",ui-sans-serif,system-ui,sans-serif}`}</style>
+        <style>{`:root{--font-display:var(--font-display-loaded),"Fraunces",Georgia,"Times New Roman",serif}`}</style>
       </head>
       <body>
         {children}
