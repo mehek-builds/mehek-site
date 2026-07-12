@@ -24,7 +24,7 @@ const WINS: Win[] = [
       "Autofills job applications: a Chrome extension, resume generation, and a full product dashboard.",
     url: "https://role-quick-website.vercel.app",
     urlLabel: "role-quick-website.vercel.app",
-    poster: "/work/rolequick.png",
+    poster: "/work/rolequick.jpg",
     beats: ["On the Chrome Web Store", "Resume generation", "5-view dashboard"],
   },
   {
@@ -33,7 +33,7 @@ const WINS: Win[] = [
     gloss: "An AI agency with live clients. Systems that source, verify, and send.",
     url: "https://buildsmartagency.com",
     urlLabel: "buildsmartagency.com",
-    poster: "/work/buildsmart.png",
+    poster: "/work/buildsmart.jpg",
     beats: ["651 companies sourced", "Two-sided quality gate", "Double email verification"],
   },
   {
@@ -43,7 +43,7 @@ const WINS: Win[] = [
       "A scroll-driven site for a Dubai members club, built on the same craft this site runs on.",
     url: "https://rufescent-site.vercel.app",
     urlLabel: "rufescent-site.vercel.app",
-    poster: "/work/rufescent.png",
+    poster: "/work/rufescent.jpg",
     beats: ["GSAP scrub engine", "Motion on real frames", "Shipped for a client"],
   },
   {
@@ -53,7 +53,7 @@ const WINS: Win[] = [
       "An automated system that trades the drift after earnings announcements, run from an 8-view dashboard.",
     url: "https://pead-dashboard.vercel.app",
     urlLabel: "pead-dashboard.vercel.app",
-    poster: "/work/pead.png",
+    poster: "/work/pead.jpg",
     beats: ["Event-driven signals", "8-view dashboard", "Live updates"],
   },
 ];
