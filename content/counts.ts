@@ -23,6 +23,6 @@ export const COUNTS = {
 // The three hero numerals, in order, ready to render.
 export const HERO_STATS = [
   { value: COUNTS.live, label: "live" },
-  { value: COUNTS.shipped, label: "shipped since Aug 2024" },
+  { value: COUNTS.shipped, label: "shipped" },
   { value: COUNTS.studentsLed, label: "students led" },
 ];

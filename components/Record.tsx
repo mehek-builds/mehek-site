@@ -81,7 +81,7 @@ export default function Record() {
             <span className="num" ref={countRef}>
               {COUNTS.total}
             </span>{" "}
-            real things, Aug 2024 to now.
+            real things.
           </p>
         </div>
 
