@@ -53,8 +53,8 @@ export default function NowFooter() {
 
         <div className="colophon">
           <p>
-            This site is one of the weekly ships, built on the same scroll craft I
-            ship for clients. Press <kbd>/</kbd> for the terminal.
+            One of the weekly ships, built on the craft I ship for clients. Press{" "}
+            <kbd>/</kbd> for the terminal.
           </p>
           <div className="colophon-links">
             <a href="https://github.com/mehek-builds" target="_blank" rel="noreferrer">

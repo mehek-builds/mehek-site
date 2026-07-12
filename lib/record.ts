@@ -91,5 +91,5 @@ export const RECORD_BEATS = [
   { at: 0.2, text: "2025: built USC's first student VC program. 120 students." },
   { at: 0.4, text: "Sep 2025: Tonee, an AI texting tone detector. 100+ users in 8 weeks." },
   { at: 0.62, text: "May 2026: went full founder. An agency and a product a week." },
-  { at: 0.85, text: "Today: every node is real." },
+  { at: 0.85, text: "Today. Still shipping." },
 ];

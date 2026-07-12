@@ -21,7 +21,7 @@ const WINS: Win[] = [
     slug: "rolequick",
     name: "RoleQuick",
     gloss:
-      "Autofills job applications end to end: a Chrome extension, resume generation, and a full product dashboard.",
+      "Autofills job applications: a Chrome extension, resume generation, and a full product dashboard.",
     url: "https://role-quick-website.vercel.app",
     urlLabel: "role-quick-website.vercel.app",
     poster: "/work/rolequick.png",
@@ -30,8 +30,7 @@ const WINS: Win[] = [
   {
     slug: "buildsmart",
     name: "BuildSmart / Elemental",
-    gloss:
-      "An AI agency with live clients. Systems that source, verify, and send, sold and delivered end to end.",
+    gloss: "An AI agency with live clients. Systems that source, verify, and send.",
     url: "https://buildsmartagency.com",
     urlLabel: "buildsmartagency.com",
     poster: "/work/buildsmart.png",
@@ -41,7 +40,7 @@ const WINS: Win[] = [
     slug: "rufescent",
     name: "The Rufescent film",
     gloss:
-      "A scroll-driven cinematic site for a Dubai members club: the scroll is the camera. The same craft this site runs on.",
+      "A scroll-driven site for a Dubai members club, built on the same craft this site runs on.",
     url: "https://rufescent-site.vercel.app",
     urlLabel: "rufescent-site.vercel.app",
     poster: "/work/rufescent.png",
@@ -51,7 +50,7 @@ const WINS: Win[] = [
     slug: "pead-system",
     name: "Earnings-drift trading system",
     gloss:
-      "An automated system that trades the drift after earnings announcements, run from an 8-view operator dashboard.",
+      "An automated system that trades the drift after earnings announcements, run from an 8-view dashboard.",
     url: "https://pead-dashboard.vercel.app",
     urlLabel: "pead-dashboard.vercel.app",
     poster: "/work/pead.png",
