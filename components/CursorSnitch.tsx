@@ -55,8 +55,8 @@ export default function CursorSnitch() {
     };
 
     const tick = () => {
-      x += (tx - x) * 0.15;
-      y += (ty - y) * 0.15;
+      x += (tx - x) * 0.28;
+      y += (ty - y) * 0.28;
       el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
       raf = requestAnimationFrame(tick);
     };

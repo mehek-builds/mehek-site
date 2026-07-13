@@ -401,8 +401,10 @@ a {
   50% { transform: rotate(-15deg); }
 }
 @keyframes snitchBob {
-  0%, 100% { transform: translateY(-1.4px) rotate(-2deg); }
-  50% { transform: translateY(1.4px) rotate(2deg); }
+  /* Rotation only — no vertical drift — so the ball's centre (the aim point)
+     stays put when you hold still over a link. The wings still flap for life. */
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
 }
 /* When the snitch is live it replaces the pointer: hide the native cursor
    everywhere. The class is only present while CursorSnitch is running (added in
