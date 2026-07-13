@@ -32,6 +32,10 @@ export interface Item {
   clientWork?: boolean; // feeds the Leading scene "[N] client systems" count
   watch?: string; // captured demo URL (fills over time; empty at v1)
   image?: string;
+  // status "wound-down" only: the tombstone line Receipts.tsx renders. Kept
+  // per-item (not a fixed literal in the component) so a second wound-down
+  // venture doesn't inherit Traeco's copy by accident.
+  tombstoneNote?: string;
   // Curation directive (Mehek, 2026-07-12): receipts are two-tier. "shelf"
   // renders a full receipt card (the five flagships + the Traeco tombstone,
   // ratified by Mehek); everything else defaults to a one-line ledger row.
@@ -121,6 +125,7 @@ export const ITEMS: Item[] = [
     weight: 2,
     status: "wound-down",
     tier: "shelf",
+    tombstoneNote: "Wound down 2026. First startup; the lessons fund everything since.",
     links: [{ label: "Site", url: "https://traeco.dev" }],
   },
   {

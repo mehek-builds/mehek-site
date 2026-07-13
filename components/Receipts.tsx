@@ -36,10 +36,8 @@ function Card({ item }: { item: Item }) {
       <p className="receipt-gloss">{item.oneLiner}</p>
       <p className="receipt-desc">{item.description}</p>
 
-      {isTomb && (
-        <p className="receipt-tombline">
-          Wound down 2026. First startup; the lessons fund everything since.
-        </p>
+      {isTomb && item.tombstoneNote && (
+        <p className="receipt-tombline">{item.tombstoneNote}</p>
       )}
 
       {item.metrics && item.metrics.length > 0 && (

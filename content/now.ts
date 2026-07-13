@@ -37,5 +37,7 @@ export function getNow(buildDate: string): NowState {
   };
 }
 
-// The build stamps this at module load; used as "now" for the staleness check.
-export const BUILD_DATE = new Date().toISOString().slice(0, 10);
+// Baked into the bundle at `next build` time via next.config.mjs (not
+// recomputed per-render), so server prerender and client hydration always
+// agree on "now" for the staleness check.
+export const BUILD_DATE = process.env.NEXT_PUBLIC_BUILD_DATE as string;

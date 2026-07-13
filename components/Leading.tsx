@@ -13,7 +13,7 @@ export default function Leading() {
         <div className="lead-lines">
           <p className="lead-line reveal">
             Built <b>Venture Capital Academy</b>, USC&apos;s first student VC program.{" "}
-            <CountUp to={120} /> <span className="lead-unit">students</span>, an
+            <CountUp to={COUNTS.studentsLed} /> <span className="lead-unit">students</span>, an
             8-week curriculum, investors from Lightspeed, NEA, and Altos in the room.
           </p>
           <p className="lead-line reveal">
