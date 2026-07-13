@@ -349,3 +349,45 @@ a {
     white-space: normal;
   }
 }
+
+/* Cursor moon: an always-on, subtle ink dot + ring that trails the real
+   cursor site-wide (see components/CursorMoon.tsx). Wrapper is 0x0 and
+   JS-transformed to the eased pointer position; the dot/ring center
+   themselves on that point via negative margins. */
+.cursor-moon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-ui);
+  will-change: transform;
+}
+.cursor-moon-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: rgba(27, 26, 23, 0.32);
+}
+.cursor-moon-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border-radius: 50%;
+  border: 1px solid rgba(27, 26, 23, 0.13);
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-moon {
+    display: none;
+  }
+}

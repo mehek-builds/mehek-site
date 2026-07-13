@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces } from "next/font/google";
 import "./globals.css";
 import "./scenes.css";
+import CursorMoon from "../components/CursorMoon";
 
 // Expressive editorial serif (the creative voice). Variable, with the optical-
 // size axis so big headline cuts get the dramatic display shapes automatically.
@@ -55,6 +56,7 @@ export default function RootLayout({
       <body>
         {children}
         <div className="grade" aria-hidden="true" />
+        <CursorMoon />
       </body>
     </html>
   );
