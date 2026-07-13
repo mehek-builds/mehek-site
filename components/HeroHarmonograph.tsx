@@ -155,19 +155,30 @@ export default function HeroHarmonograph() {
       // bump ramps smoothly rather than jumping the instant the cursor enters
       hover += (hoverTarget - hover) * 0.06;
 
-      // fade the previous ribbon toward transparent (comet trail)
+      // Fade the previous ribbon (comet trail). This was 0.03 (barely
+      // erasing 3%/frame) — with how slowly this curve moves, that let
+      // strokes re-paint nearby space many times before the old ones faded,
+      // building up a hazy "wash" over the whole orbited area (measured: one
+      // alpha value covered 61,727 px, ~6% of the canvas — two orders of
+      // magnitude more than terishim.com's biggest single spike of 994).
+      // Faster erase keeps only a short, clean trail instead of that buildup.
       ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = "rgba(0,0,0,0.03)";
+      ctx.fillStyle = "rgba(0,0,0,0.1)";
       ctx.fillRect(0, 0, w, h);
       ctx.globalCompositeOperation = "source-over";
 
-      // Measured terishim.com's orbit ring directly (getImageData on their
-      // canvas): stroke pixels sample at alpha 1-18 out of 255 (~0.4%-7%
-      // opacity), nowhere near what we'd tried. That, plus the no-dpr canvas
-      // above, is the actual recipe for "impossibly thin" — not lineWidth.
-      ctx.lineWidth = 0.3;
-      ctx.strokeStyle = "rgba(24,20,12,0.05)";
-      ctx.lineCap = "round";
+      // Re-measured against the LIVE terishim.com canvas (ctx.lineWidth /
+      // ctx.strokeStyle read directly off their context, not guessed):
+      // lineWidth 0.9, strokeStyle rgba(30,28,26,0.22), lineCap butt, no
+      // shadowBlur, no filter. Going thinner than ~0.3 width + ultra-low
+      // alpha (what we had) starves the anti-aliased coverage so badly the
+      // line renders as a broken, inconsistent scratch instead of a smooth
+      // hairline — the softness is supposed to come entirely from the
+      // no-dpr canvas blurring a CONSISTENTLY covered line, not from
+      // starving the line itself.
+      ctx.lineWidth = 0.9;
+      ctx.strokeStyle = "rgba(24,20,12,0.22)";
+      ctx.lineCap = "butt";
       ctx.beginPath();
       if (!started) {
         const [x0, y0] = point(t);
