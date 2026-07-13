@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "activity": "node scripts/build-activity.mjs"
+    "activity": "node scripts/build-activity.mjs",
+    "qa:motion": "node scripts/qa-motion-recorder.js"
   },
   "dependencies": {
     "gsap": "^3.15.0",
@@ -17,6 +18,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "playwright": "^1.61.1",
     "typescript": "^5"
   }
 }
