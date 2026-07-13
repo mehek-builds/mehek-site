@@ -45,6 +45,37 @@ export default function HeroHarmonograph() {
     let params = seed();
     let warpX = 0, warpY = 0;
 
+    // Only the line the moon currently sits over should ever show any ink.
+    // Without this, the mask (a single radius around the moon) can catch the
+    // tail end of one line and the start of the other whenever the moon's
+    // path drifts near the gap between them, or loops back through a line
+    // it already lit a moment ago — reading as random already-erased
+    // fragments rather than one line currently resolving.
+    const lineEls: HTMLElement[] = Array.from(
+      heroEl?.querySelectorAll<HTMLElement>(".hero-lit-layer .hero-title > span") ?? []
+    );
+    let lineMid: number[] = [];
+    const measureLines = () => {
+      if (!heroEl || lineEls.length === 0) return;
+      const heroTop = heroEl.getBoundingClientRect().top;
+      lineMid = lineEls.map((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top - heroTop + r.height / 2;
+      });
+    };
+    const setActiveLine = (moonY: number) => {
+      if (lineMid.length === 0) return;
+      let closest = 0;
+      let bestDist = Infinity;
+      lineMid.forEach((mid, i) => {
+        const dist = Math.abs(moonY - mid);
+        if (dist < bestDist) { bestDist = dist; closest = i; }
+      });
+      lineEls.forEach((el, i) => {
+        el.style.opacity = i === closest ? "1" : "0";
+      });
+    };
+
     const point = (t: number): [number, number] => {
       const { a, b, c, d, p1, p2, p3, p4 } = params;
       const x = cx + A * 0.5 * (Math.sin(a * t + p1) + Math.sin(b * (1 + warpX * 0.22) * t + p2));
@@ -76,6 +107,7 @@ export default function HeroHarmonograph() {
       const [mx, my] = point(42);
       drawMoon(mx, my, 3);
       setMoon(mx, my);
+      setActiveLine(my);
     };
 
     const resize = () => {
@@ -87,6 +119,7 @@ export default function HeroHarmonograph() {
       cx = w * 0.37;
       cy = h * 0.45;
       A = Math.min(w, h) * 0.3;
+      measureLines();
       drawStatic(); // initial figure (also the still frame if reduced-motion)
     };
     resize();
@@ -125,6 +158,7 @@ export default function HeroHarmonograph() {
       px = lx; py = ly;
       drawMoon(lx, ly, 3);
       setMoon(lx, ly);
+      setActiveLine(ly);
 
       // very slow drift so the figure keeps evolving
       params.p2 += 0.00006;
