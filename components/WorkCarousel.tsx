@@ -120,6 +120,7 @@ export default function WorkCarousel() {
     let half = 0; // loop length: half the track + one gap
     let hovered = false;
     let dragging = false;
+    let captured = false;
     let dragPointer = -1;
     let lastPointerX = 0;
     let dragDistance = 0;
@@ -163,19 +164,32 @@ export default function WorkCarousel() {
       dragPointer = e.pointerId;
       lastPointerX = e.clientX;
       dragDistance = 0;
-      track.setPointerCapture(e.pointerId);
+      captured = false;
+      // NB: do NOT capture the pointer here. setPointerCapture retargets the
+      // follow-up click event to the capturing element (.car-track), so the
+      // card <a> never receives the click and never navigates. Capture is
+      // taken lazily in onMove once a real drag starts.
     };
     const onMove = (e: PointerEvent) => {
       if (!dragging || e.pointerId !== dragPointer) return;
       const dx = e.clientX - lastPointerX;
       lastPointerX = e.clientX;
       dragDistance += Math.abs(dx);
+      // only once this is unmistakably a drag do we grab the pointer, so a
+      // plain click keeps landing on the link underneath it
+      if (!captured && dragDistance > 6) {
+        try {
+          track.setPointerCapture(dragPointer);
+        } catch {}
+        captured = true;
+      }
       x += dx;
       wrap();
     };
     const onUp = (e: PointerEvent) => {
       if (e.pointerId !== dragPointer) return;
       dragging = false;
+      captured = false;
       // touch has no hover: releasing the finger resumes the drift
       if (e.pointerType !== "mouse") hovered = false;
     };
