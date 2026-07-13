@@ -155,8 +155,13 @@ export default function HeroHarmonograph() {
       ctx.fillRect(0, 0, w, h);
       ctx.globalCompositeOperation = "source-over";
 
-      ctx.lineWidth = 0.004;
-      ctx.strokeStyle = "rgba(24,20,12,0.38)";
+      // Canvas strokes floor out at roughly one device pixel of coverage no
+      // matter how far lineWidth drops below that — width alone stopped
+      // making this visibly thinner a few steps ago. Opacity is the lever
+      // that keeps working past that floor, so it's doing the rest of the
+      // "thinner" work now (moonlight radius/strength is untouched).
+      ctx.lineWidth = 0.3;
+      ctx.strokeStyle = "rgba(24,20,12,0.16)";
       ctx.lineCap = "round";
       ctx.beginPath();
       if (!started) {
