@@ -17,6 +17,12 @@ export default function CursorSnitch() {
     const el = ref.current;
     if (!el) return;
 
+    // The snitch now *is* the cursor: hide the native pointer site-wide. Scoped
+    // to a root class we only add here, so touch / reduced-motion visitors (who
+    // get no snitch, per the guards above) keep their normal system cursor.
+    const root = document.documentElement;
+    root.classList.add("snitch-active");
+
     let x = 0, y = 0, tx = 0, ty = 0;
     let started = false;
     let raf = 0;
@@ -50,6 +56,7 @@ export default function CursorSnitch() {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);
       document.documentElement.removeEventListener("mouseleave", onLeave);
+      root.classList.remove("snitch-active");
     };
   }, []);
 
