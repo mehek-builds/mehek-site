@@ -81,7 +81,7 @@
 .ht-lit {
   color: var(--text);
 }
-/* Only the line the moon is currently over is ever visible at all — ghost
+/* Only the line the moon is currently over is ever visible at all - ghost
    AND ink both fade with it; the JS sets each line's opacity per frame (see
    HeroHarmonograph.tsx setActiveLine). */
 .ht-ghost > span,
@@ -158,152 +158,6 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-cue-arrow { animation: none; }
-}
-
-/* ---------- Scene 2: THE RECORD ---------- */
-.record {
-  position: relative;
-}
-.rec-stage {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 8vh 0;
-}
-.rec-head {
-  margin-bottom: 30px;
-}
-.rec-count-line {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
-  letter-spacing: -0.02em;
-  margin: 8px 0 0;
-}
-.rec-plot-wrap {
-  width: 100%;
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 0 28px;
-}
-.rec-rows {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-.rec-row-label {
-  font-family: var(--font-text);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  flex: 1;
-}
-.rec-plot {
-  position: relative;
-  height: clamp(220px, 34vh, 340px);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background:
-    linear-gradient(var(--line), var(--line)) 0 25% / 100% 1px no-repeat,
-    linear-gradient(var(--line), var(--line)) 0 50% / 100% 1px no-repeat,
-    linear-gradient(var(--line), var(--line)) 0 75% / 100% 1px no-repeat;
-}
-.rec-tex {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--amber);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-.rec-node {
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  border-radius: 3px;
-  transform: translate(-50%, -50%);
-  background: var(--nc, var(--amber));
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  box-shadow: 0 0 12px -2px var(--nc, var(--amber));
-  transition: opacity 0.4s var(--ease-ui), box-shadow 0.3s var(--ease-ui), transform 0.2s var(--ease-ui);
-}
-.rec-node:hover,
-.rec-node:focus-visible {
-  transform: translate(-50%, -50%) scale(1.35);
-  box-shadow: 0 0 18px 0 var(--nc, var(--amber));
-  outline: none;
-  z-index: 5;
-}
-.js .rec-node { opacity: 0.09; box-shadow: none; }
-.js .rec-node.lit { opacity: 1; box-shadow: 0 0 12px -2px var(--nc, var(--amber)); }
-.rec-pop {
-  position: absolute;
-  bottom: 150%;
-  left: 50%;
-  transform: translateX(-50%);
-  display: none;
-  flex-direction: column;
-  gap: 2px;
-  width: max-content;
-  max-width: 220px;
-  padding: 8px 11px;
-  background: var(--glass);
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  box-shadow: 0 8px 24px -12px rgba(24, 20, 12, 0.28);
-  text-align: left;
-  pointer-events: none;
-  z-index: 10;
-}
-.rec-pop b { font-family: var(--font-text); font-size: 0.82rem; color: var(--text); }
-.rec-pop span { font-size: 0.76rem; color: var(--text-dim); line-height: 1.35; }
-.rec-node:hover .rec-pop,
-.rec-node:focus-visible .rec-pop { display: flex; }
-.rec-axis {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  font-family: var(--font-text);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
-.rec-beats {
-  position: relative;
-  height: 3.4em;
-  margin-top: 34px;
-  max-width: var(--maxw);
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 28px;
-}
-.rec-beat {
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
-  letter-spacing: -0.01em;
-  color: var(--text);
-  margin: 0;
-}
-.js .rec-beat {
-  position: absolute;
-  left: 28px;
-  right: 28px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s var(--ease-ui), transform 0.5s var(--ease-ui);
-}
-.js .rec-beat.active { opacity: 1; transform: none; }
-.rec-hint {
-  margin-top: 26px;
-  color: var(--text-faint);
-  font-family: var(--font-text);
-  font-size: 0.85rem;
 }
 
 /* ---------- Receipts index ---------- */
@@ -801,12 +655,10 @@ video.win-shot { background: var(--bg-2); }
   .globe-mark { display: none; }
   .scene-caption { display: none; }
   .now-post { margin-left: 0; }
-  .rec-plot { height: 260px; }
 }
 @media (max-width: 520px) {
   body { font-size: 16px; }
   .wrap { padding: 0 20px; }
-  .rec-row-label { font-size: 0.56rem; }
   .receipt-grid { grid-template-columns: 1fr; }
 }
 

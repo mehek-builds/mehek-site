@@ -1,5 +1,5 @@
 "use client";
-// Scene 0 — the hero. Only the name and tagline. They sit almost invisible in
+// Scene 0 - the hero. Only the name and tagline. They sit almost invisible in
 // the paper (a ghost) and are revealed in ink only where the moon's slow, cool
 // light sweeps across (the .hero-lit-layer is masked to the moonlight). The
 // ghost is real server-rendered text, so a plain fetch still returns the pitch.
@@ -32,7 +32,7 @@ export default function Hero() {
           <Title cls="ht-lit" />
         </div>
       </div>
-      <a className="hero-cue" href="#record" aria-label="Scroll down">
+      <a className="hero-cue" href="#flagships" aria-label="Scroll down">
         <span className="hero-cue-arrow">↓</span>
       </a>
     </header>
