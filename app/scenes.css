@@ -371,7 +371,7 @@
 .receipt-metrics { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 14px; }
 .metric { display: flex; flex-direction: column; }
 .metric .num { font-size: 1.15rem; line-height: 1.1; }
-.metric-label { font-size: 0.7rem; color: var(--text-faint); letter-spacing: 0.03em; text-transform: uppercase; margin-top: 2px; }
+.metric-label { font-family: var(--font-mono); font-size: 0.64rem; color: var(--text-faint); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 3px; }
 .receipt-making {
   border-top: 1px solid var(--line);
   padding-top: 12px;
@@ -711,8 +711,8 @@ video.win-shot { background: var(--bg-2); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-text);
-  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--amber);
@@ -877,7 +877,7 @@ video.win-shot { background: var(--bg-2); }
   min-width: 0;
 }
 .now-recently {
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -923,7 +923,7 @@ video.win-shot { background: var(--bg-2); }
 }
 .scene-caption-text {
   display: inline-block;
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -937,4 +937,42 @@ video.win-shot { background: var(--bg-2); }
   .scene-caption-text {
     transition: none;
   }
+}
+
+/* Single ember glow behind each Work window: color emanates from the proof
+   (Joshua Placido's per-project halo, collapsed to the one ember). These are
+   live/shipped products, so the glow reads as "this shipped", within the law. */
+.car-card { position: relative; }
+.car-card .win-frame { position: relative; z-index: 1; }
+.car-card::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  width: 76%;
+  height: 60%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, var(--amber-glow), transparent 70%);
+  filter: blur(34px);
+  opacity: 0.42;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-ui);
+}
+.car-card:hover::before { opacity: 0.72; }
+@media (prefers-reduced-motion: reduce) {
+  .car-card::before { transition: none; }
+}
+
+/* Real product footage: overlays the poster (its own poster frame shows at rest,
+   the clip plays on hover). object-fit cover, but the clip is already 16:10 so
+   nothing crops. */
+.win-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  display: block;
 }

@@ -43,18 +43,18 @@ export default function Person() {
           <p className="eyebrow reveal">The person</p>
           <div className="person-note reveal">
             <p>
-              I turned down the safe, prestigious version of my twenties to build
-              things nobody asked me to build.
+              I turned down the safe, prestigious version of my twenties to{" "}
+              <em className="ink-strong">build things nobody asked me to build</em>.
             </p>
             <p>
               Some weeks that looks like traction. Some weeks it looks like a
-              wound-down startup and a lot of unanswered email. I am optimizing for
-              the shortest loop between an idea and a real user, and betting that
-              compounding that loop beats any title.
+              wound-down startup and a lot of unanswered email. I am optimizing for{" "}
+              <em className="ink-strong">the shortest loop between an idea and a real user</em>,
+              and betting that compounding that loop beats any title.
             </p>
             <p>
               What I do not know yet is which of these becomes the company. I am
-              okay not knowing, as long as I keep shipping.
+              okay not knowing, <em className="ink-strong">as long as I keep shipping</em>.
             </p>
           </div>
           <p className="person-texture reveal">

@@ -15,6 +15,7 @@ interface Card {
   url: string;
   urlLabel: string;
   poster: string;
+  video?: string; // real product footage; hover-plays over the poster
 }
 
 const CARDS: Card[] = [
@@ -26,6 +27,7 @@ const CARDS: Card[] = [
     url: "https://role-quick-website.vercel.app",
     urlLabel: "role-quick-website.vercel.app",
     poster: "/work/rolequick.jpg",
+    video: "/work/rolequick.mp4",
   },
   {
     slug: "buildsmart",
@@ -34,6 +36,7 @@ const CARDS: Card[] = [
     url: "https://buildsmartagency.com",
     urlLabel: "buildsmartagency.com",
     poster: "/work/buildsmart.jpg",
+    video: "/work/buildsmart.mp4",
   },
   {
     slug: "rufescent",
@@ -43,6 +46,7 @@ const CARDS: Card[] = [
     url: "https://rufescent-site.vercel.app",
     urlLabel: "rufescent-site.vercel.app",
     poster: "/work/rufescent.jpg",
+    video: "/work/rufescent.mp4",
   },
   {
     slug: "pead-system",
@@ -61,10 +65,25 @@ const CARDS: Card[] = [
     url: "https://traeco.dev",
     urlLabel: "traeco.dev",
     poster: "/work/traeco.jpg",
+    video: "/work/traeco.mp4",
   },
 ];
 
 function ProductCard({ card, ariaHidden }: { card: Card; ariaHidden?: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  // The footage loops continuously (muted, autoplay), so every window is alive.
+  // Reduced-motion is the one exception: pause and rest on the poster frame.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      v.pause();
+      v.removeAttribute("autoplay");
+      v.currentTime = 0;
+    } else {
+      void v.play().catch(() => {});
+    }
+  }, []);
   return (
     <a
       className="car-card"
@@ -99,6 +118,22 @@ function ProductCard({ card, ariaHidden }: { card: Card; ariaHidden?: boolean })
             loading="lazy"
             onError={(e) => (e.currentTarget.style.display = "none")}
           />
+          {card.video && (
+            <video
+              ref={videoRef}
+              className="win-video"
+              poster={card.poster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+              tabIndex={-1}
+            >
+              <source src={card.video} type="video/mp4" />
+            </video>
+          )}
         </div>
       </div>
       <h3 className="car-name">{card.name}</h3>
