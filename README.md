@@ -1,38 +1,6 @@
-# mehek-site
+# founder-site
 
-A hand-built cinematic founder site: one URL that, in under ten seconds, makes a cold visitor believe "this person invents, ships, and leads at an unusual rate, with the craft to prove it," and then lets them verify every claim against receipts.
-
-This is not a template reskin and not a page builder. It is a statically prerendered Next.js 15 / React 19 / TypeScript single-page app whose signature moments all run on bespoke, hand-written code rather than off-the-shelf libraries: a live ink harmonograph that draws the hero name as a cool pool of "moonlight" sweeps across it, a three-city origin globe rendered from scratch on a 2D canvas with real Natural Earth coastlines and great-circle flight paths, that same globe spun into the browser-tab favicon a frame at a time, a load-time zoom-out that flies the Earth into the corner mark, a pointer-draggable product carousel with hover-to-play footage, and a two-tier evidence index. Underneath sits a single-source-of-truth TypeScript data layer (every headline number is derived, never typed), a ~1,400-line hand-written CSS design system with exactly one accent color, GSAP with ScrollTrigger and a shared motion-token set in the engine layer, and a reduced-motion static twin behind every animated thing. There is no 3D library, no animation framework driving the scenes, and no CSS framework anywhere.
-
-Live: https://mehek-site.vercel.app (served publicly at mehekmandal.com).
-
----
-
-## The problem this solves
-
-A founder's site has a strange, unforgiving job. It has to convince three different audiences at once, in the first few seconds, without a shared vocabulary between them:
-
-1. **Investors** want to see traction, judgment, and range, fast, and they are pattern-matching against a thousand other decks and sites.
-2. **Potential co-founders and hires** want to know what it feels like to build alongside this person, and whether the craft is real or borrowed.
-3. **Clients** want proof that the work ships and holds up.
-
-Most personal sites fail all three the same way. They reach for a template, so the visitor's very first subconscious read is "this looks like everyone else's," which is fatal for someone whose entire claim is that they are *not* like everyone else. Or they overcorrect into a wall of animation that buries the substance, so a busy reader bounces before reaching a single fact. Or they state numbers the person cannot actually back up, and one skeptical question collapses the whole thing.
-
-So the real problem is not "make a nice website." It is: **present a large, fast-moving body of real work memorably and honestly, prove the craft in the medium itself, and never state a claim the founder cannot defend in a phone call, all while staying readable to a stranger and a crawler with JavaScript turned off.** That set of constraints pulls in opposite directions, and resolving them is where the engineering lives:
-
-- **Distinctiveness vs. readability.** The site has to look and move like nothing else, yet the pitch must be reachable in one scroll and legible without the motion. The resolution here is that every animated layer is an *enhancement* over server-rendered HTML that already says everything. A plain `curl` returns the full pitch of every scene.
-- **Craft has to be demonstrated, not asserted.** Anyone can write "strong front-end skills." This site instead renders a globe, a harmonograph, and an animated favicon from first principles, on a 2D canvas, with no 3D or animation library to lean on. The medium is the evidence.
-- **Truth has to be structurally enforced, not promised.** If the hero says "16 shipped" and a receipt is added or removed, the number has to move on its own or the site will eventually lie. That means counts are *derived from data*, never hardcoded in a scene.
-- **It cannot rot.** A live founder ships constantly; a "Now" widget that goes stale is worse than none. So staleness is handled in code: past a threshold the widget degrades to a still-true line.
-- **It has to survive the real web.** Background tabs throttle animation timers, embedded webviews suspend them entirely, users request reduced motion, screen readers and crawlers need text. Each of those is a way for a naive animated site to freeze half-drawn or go blank, and each is handled explicitly here.
-
-**mehek-site is an attempt to satisfy all of those constraints as one system** rather than a pretty page that satisfies the first and quietly breaks the rest.
-
-## Why you should care (even if you never hire a founder)
-
-If you are reading this to understand what the builder can do, here is the short version. This repository takes a deceptively soft brief ("a personal site") and treats it as a real front-end rendering problem. It hand-rolls the math for an orthographic globe (sphere projection, back-face culling, spherical-linear-interpolated great-circle routes), draws a harmonograph as a live sum of slightly detuned sine pendulums with a fixed-length trail buffer, animates a favicon by rasterizing a canvas to a PNG data URI every frame because browsers refuse to animate icon files, and does all of it with a strict discipline most "cinematic" sites skip: a static, fully-readable twin behind every effect, counts that cannot drift from their evidence, and graceful degradation for reduced motion, background tabs, suspended webviews, and no-JS crawlers. The interesting part is not any one animation. It is that expressive motion and engineering rigor are held together at the same time, which is exactly the thing a founder's site is supposed to prove.
-
----
+My personal founder site, live at mehekmandal.com: a hand-built, cinematic single-page site presenting who I am and what I've shipped. Every scene is hand-coded on Canvas 2D, with no template, page builder, or 3D library.
 
 ## System architecture
 
@@ -123,7 +91,7 @@ Below the work sits the proof. It renders in two tiers by design: a curated "she
 
 `content/items.ts` is the single source of truth. Each item is a typed record (slug, pillar, a stranger-readable one-line gloss, description, date, status, weight, optional metrics/tech/links/making-of, curation `tier`, NDA flags). `content/counts.ts` derives every headline number from that array: `live` and `shipped` are filters over the ventures and inventions pillars, `clientSystems` counts items flagged `clientWork`, `total` is the array length. No scene is allowed to hardcode a count, so adding or removing a receipt automatically moves every number that references it and the site cannot silently lie.
 
-`content/now.ts` reads `content/now.json` and applies a **21-day anti-rot rule**: if the Now file is older than three weeks at build time, the widget stops asserting "currently building X" and degrades to a still-true "Latest ship" line pulled from the newest dated item. Critically, "now" is not `new Date()` at render time; it is frozen into `NEXT_PUBLIC_BUILD_DATE` at `next build` (via `next.config.mjs`) so the server prerender and the client hydration agree and never mismatch the staleness check. `content/activity.json` holds real per-day work counts (see the build tooling below) used only as background grid texture, so even the ambient density traces to logged work rather than being painted in.
+`content/now.ts` reads `content/now.json` and applies a **21-day anti-rot rule**: if the Now file is older than three weeks at build time, the widget stops asserting "currently building X" and degrades to a still-true "Latest ship" line pulled from the newest dated item. Critically, "now" is not `new Date()` at render time; it is frozen into `NEXT_PUBLIC_BUILD_DATE` at `next build` (via `next.config.mjs`) so the server prerender and the client hydration agree and never mismatch the staleness check. `content/activity.json` holds real per-day work counts generated by the build tooling below. It is a leftover from a retired background-grid scene and is not currently imported by any shipped component; the generator is kept so the data stays available.
 
 ## Resilience, accessibility, and the "static twin" discipline (`lib/visible.ts`, `app/layout.tsx`)
 
@@ -157,13 +125,13 @@ npm run build      # production build (static prerender)
 npm run start      # serve the production build
 ```
 
-Regenerate the real git-activity texture that backs the ambient grid:
+Regenerate the git-activity data file (generated by the tooling, though not currently wired into a shipped scene):
 
 ```bash
 npm run activity   # scripts/build-activity.mjs → content/activity.json
 ```
 
-`scripts/build-activity.mjs` walks local repositories under `~/Documents` (to a depth of two), reads each one's `git log` dates, and writes per-day commit counts to `content/activity.json`. The rule it enforces is that the site's background density traces to real logged work, never to painted-in decoration.
+`scripts/build-activity.mjs` walks local repositories under `~/Documents` (to a depth of two), reads each one's `git log` dates, and writes per-day commit counts to `content/activity.json`. That file is a leftover from a retired background-density scene and is not currently consumed by any shipped component.
 
 ## Testing: the motion QA gate
 
