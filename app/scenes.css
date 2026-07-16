@@ -60,8 +60,15 @@
   display: block;
   padding: 0.02em 0.03em 0.08em;
 }
+/* The tagline sets 30% smaller than the name (Mehek, 2026-07-16), so the pair
+   reads as compressed rather than as two equal lines. Both the ghost and the
+   lit layer inherit this, which keeps the masked duplicate in register.
+   The margin REBASES on purpose: it is em-based, and em on this line now means
+   0.7 of what it meant, so leaving it at 0.21em would quietly close the gap by
+   30% along with the type. 0.21 / 0.7 = 0.3em holds the original distance. */
 .hero-title span + span {
-  margin-top: 0.21em; /* ~20% of the 1.04 line box, opens the name/tagline gap */
+  font-size: 0.7em;
+  margin-top: 0.3em;
 }
 /* ghost: the name barely present in the paper (and the real SSR text). */
 .ht-ghost {
