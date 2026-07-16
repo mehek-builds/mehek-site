@@ -1,12 +1,21 @@
 "use client";
-// The evidence layer below the Record. TWO TIERS (Mehek curation directive,
-// 2026-07-12): shelf items (the five flagships + the Traeco tombstone) render
-// full receipt cards; everything else renders a one-line ledger row under
-// "The rest of the record". Grid nodes and counts include both tiers. Pillar
-// filter chips (?pillar= URL state) and #item-slug deep links work across
-// both. All content is server-rendered (plain fetch returns every receipt).
+// The evidence layer below the reel. PROOF-FIRST (Mehek ruling, 2026-07-16,
+// which AMENDS the 2026-07-12 curation row: the reel above is now the shelf, so
+// this section is the REMAINDER and never repeats a reel card).
+//
+// Each item leads with its strongest verified fact in ember display type, then
+// the name, the gloss, and the link row: DO #2, "one real outcome per artifact",
+// built as a layout. An item with no metric can't lead with one, so it stays a
+// one-line ledger row under "The rest of the record" (Mehek ruling, same day)
+// rather than rendering a card with an empty hero slot.
+//
+// A "metric" is any verified fact, not just a number: RoleQuick's is the value
+// "Chrome Web Store" with a source link. Ember still means exactly one thing.
+// Pillar filter chips (?pillar= URL state) and #item-slug deep links work across
+// both groups. All content is server-rendered (plain fetch returns every receipt).
 import { useEffect, useMemo, useState } from "react";
 import { ITEMS, PILLARS, type Item, type Pillar } from "../content/items";
+import { CARD_SLUGS } from "./WorkCarousel";
 
 const STATE_NOTE: Record<Item["status"], string> = {
   live: "Live",
@@ -16,98 +25,66 @@ const STATE_NOTE: Record<Item["status"], string> = {
   role: "Led",
 };
 
-function Card({ item }: { item: Item }) {
-  const isTomb = item.status === "wound-down";
+function ProofCard({ item }: { item: Item }) {
+  // The lead fact is the card's hero. A second metric rides alongside it (only
+  // LetterStory has one today: 651 sourced / 370 passed); anything beyond two
+  // would fight the "one real outcome per artifact" rule, so it is dropped.
+  const lead = (item.metrics ?? []).slice(0, 2);
   return (
-    <article
-      id={`item-${item.slug}`}
-      className={`receipt glass ${isTomb ? "receipt-tomb" : ""}`}
-      data-pillar={item.pillar}
-    >
-      <div className="receipt-top">
-        <span className={`receipt-state state-${item.status}`}>
-          {item.status === "live" && <span className="node-live" aria-hidden="true" />}
-          {STATE_NOTE[item.status]}
-        </span>
-        <span className="receipt-date">{item.date.slice(0, 7)}</span>
+    <article id={`item-${item.slug}`} className="receipt glass proof" data-pillar={item.pillar}>
+      <div className="proof-lead">
+        {lead.map((m) => {
+          const body = (
+            <>
+              <span className="proof-stat">{m.value}</span>
+              <span className="proof-label">
+                {m.label}
+                {m.source && " · verify ↗"}
+              </span>
+            </>
+          );
+          // claims-as-receipts: a sourced fact is a checkable ember link
+          return m.source ? (
+            <a
+              className="proof-fact proof-sourced"
+              key={m.label}
+              href={m.source}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${m.value} ${m.label}, verify at the source`}
+            >
+              {body}
+            </a>
+          ) : (
+            <span className="proof-fact" key={m.label}>
+              {body}
+            </span>
+          );
+        })}
       </div>
+
+      <hr className="proof-rule" />
 
       <h3 className="receipt-title">{item.title}</h3>
       <p className="receipt-gloss">{item.oneLiner}</p>
-      <p className="receipt-desc">{item.description}</p>
 
-      {isTomb && item.tombstoneNote && (
-        <p className="receipt-tombline">{item.tombstoneNote}</p>
-      )}
-
-      {item.metrics && item.metrics.length > 0 && (
-        <div className="receipt-metrics">
-          {item.metrics.map((m) =>
-            m.source ? (
-              // claims-as-receipts: a sourced fact is a checkable ember link
-              <a
-                className="metric metric-sourced"
-                key={m.label}
-                href={m.source}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${m.value} ${m.label}, verify at the source`}
-              >
-                <span className="num">{m.value}</span>
-                <span className="metric-label">{m.label} · verify ↗</span>
-              </a>
-            ) : (
-              <span className="metric" key={m.label}>
-                <span className="num">{m.value}</span>
-                <span className="metric-label">{m.label}</span>
-              </span>
-            )
-          )}
-        </div>
-      )}
-
-      {item.makingOf && (
-        <div className="receipt-making">
-          <p className="receipt-making-h">How it was built</p>
-          <ul>
-            {item.makingOf.map((f, i) => (
-              <li key={i}>{f}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <div className="receipt-foot">
-        {item.tech && (
-          <div className="receipt-tech">
-            {item.tech.map((t) => (
-              <span className="tag" key={t}>
-                {t}
-              </span>
-            ))}
-          </div>
-        )}
+      <div className="proof-foot">
         {item.links && item.links.length > 0 && (
           <div className="receipt-links">
             {item.links.map((l) => (
-              <a
-                key={l.url}
-                className="receipt-link"
-                href={l.url}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a key={l.url} className="receipt-link" href={l.url} target="_blank" rel="noreferrer">
                 {l.label} ↗
               </a>
             ))}
           </div>
         )}
-        {item.nda && (
-          <div className="receipt-nda">
-            <span className="receipt-nda-tag">Under NDA, available upon request</span>
-            {item.ndaNote && <p className="receipt-nda-note">{item.ndaNote}</p>}
-          </div>
-        )}
+        {item.nda && <span className="proof-nda">Under NDA, available upon request</span>}
+        {/* State + date stay, quiet, under the fact: reverse-chron order needs a
+            visible date to read as an order, and "live" is real information. */}
+        <span className="proof-state">
+          {item.status === "live" && <span className="node-live" aria-hidden="true" />}
+          {STATE_NOTE[item.status]} · {item.date.slice(0, 7)}
+        </span>
       </div>
     </article>
   );
@@ -181,20 +158,26 @@ export default function Receipts() {
   const shown = useMemo(
     () =>
       [...ITEMS]
+        // the reel above is the shelf; this section is what it doesn't carry
+        .filter((i) => !CARD_SLUGS.includes(i.slug))
         .filter((i) => active === "all" || i.pillar === active)
         .sort((a, b) => b.date.localeCompare(a.date)),
     [active]
   );
-  const shelf = shown.filter((i) => i.tier === "shelf");
-  const ledger = shown.filter((i) => i.tier !== "shelf");
+  // A card must lead with a verified fact. No fact, no card: those drop to a
+  // one-line row rather than opening on an empty hero slot.
+  const proven = shown.filter((i) => (i.metrics?.length ?? 0) > 0);
+  const rest = shown.filter((i) => (i.metrics?.length ?? 0) === 0);
 
   return (
     <section className="scene receipts" id="work" aria-label="The receipts">
       <div className="wrap">
         <div className="receipts-head">
           <p className="eyebrow">The receipts</p>
+          {/* was "Every node above, with the proof.", which stopped being true
+              the moment this section became the remainder rather than the index */}
           <p className="receipts-sub">
-            Every node above, with the proof.
+            Everything the reel doesn&rsquo;t show, with the proof.
           </p>
           <div className="chips" role="tablist" aria-label="Filter by pillar">
             <button
@@ -219,18 +202,18 @@ export default function Receipts() {
           </div>
         </div>
 
-        {shelf.length > 0 && (
+        {proven.length > 0 && (
           <div className="receipt-grid">
-            {shelf.map((item) => (
-              <Card key={item.slug} item={item} />
+            {proven.map((item) => (
+              <ProofCard key={item.slug} item={item} />
             ))}
           </div>
         )}
 
-        {ledger.length > 0 && (
+        {rest.length > 0 && (
           <div className="ledger">
             <p className="ledger-head">The rest of the record</p>
-            {ledger.map((item) => (
+            {rest.map((item) => (
               <LedgerRow key={item.slug} item={item} />
             ))}
           </div>

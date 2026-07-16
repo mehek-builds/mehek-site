@@ -25,16 +25,47 @@ element, and muted looping `.mp4` footage over the poster). The loop is seamless
 a duplicated half and driven by `requestAnimationFrame` (speed derived from the
 measured half-width). It pauses on hover and is pointer-draggable (capture is taken
 lazily only past a 6px threshold, so a plain click still opens the card link). The
-"N shipped projects so far" line derives from `counts.ts`. Reduced motion: a plain
-scrollable row, with videos resting on their posters.
+"plus N more in the receipts below" hint derives from `counts.ts`. Reduced motion: a
+plain scrollable row, with videos resting on their posters.
+
+The section opens on `MoonTitle` ("Highlight reel"): the hero's moon, compressed to
+one line (Mehek, 2026-07-16). The eyebrow and the old "N shipped projects so far"
+line are both gone, so the scene is a single oversized kinetic line of ink on paper
+per the title-card rhythm. The figure, moon, and trail tuning are shared with the
+hero via `lib/harmonograph.ts`, so the two can never drift; only the amplitudes
+differ (a line of type is a wide, shallow box, so `ax`/`ay` split where the hero
+passes one amplitude twice). The ghost `<h2>` is the real server-rendered text and
+the lit layer is an aria-hidden duplicate masked to the moonlight. Reduced motion:
+full-ink title, no moon, no canvas.
+
+**THE REEL IS THE SHELF** (Mehek ruling, 2026-07-16, which amends the 2026-07-12
+curation directive): these six cards carry all card-level emphasis, so `Receipts`
+renders only the remainder. `CARD_SLUGS` is exported here and filtered there, so
+adding a card to the reel removes it from the receipts in the same commit.
 
 ## 2. The receipts (`Receipts.tsx`) - id `work`
-The evidence index, in TWO TIERS. Shelf items render full receipt cards (state note
-+ date, title, gloss, description, a tombstone line for wound-down work, metric chips
-where sourced metrics become checkable ember links, a "How it was built" strip, tech
-tags, a link row, and an NDA tag where flagged); everything else renders a one-line
-ledger row under "The rest of the record". Pillar filter chips write `?pillar=` into
-the URL, and `#item-slug` deep links scroll to and flash a card. All server-rendered.
+PROOF-FIRST over the REMAINDER (Mehek ruling, 2026-07-16; supersedes the two-tier
+shelf/ledger split, which the reel made redundant). The section renders only what the
+reel does not carry (15 items today) and repeats nothing from it.
+
+Each item leads with its strongest verified fact in ember display type, then the
+name, the gloss, and the link row: DO #2, "one real outcome per artifact", built as a
+layout. A second metric may ride alongside as context but renders subordinate, since
+two facts at equal size read as two heroes. A "metric" is any verified fact, not just
+a number (RoleQuick's was the value "Chrome Web Store" with a source link), and a
+sourced fact becomes a checkable ember link. An item with NO metric cannot lead with
+one, so it stays a one-line row under "The rest of the record" rather than opening on
+an empty hero slot. A quiet state-and-date line closes each card.
+
+Pillar filter chips write `?pillar=` into the URL, and `#item-slug` deep links scroll
+to and flash a card. All server-rendered.
+
+Consequences of the amendment, logged: the flagships' "How it was built" strips are
+dropped for now (data still in `items.ts`, unrendered), and the Traeco tombstone plus
+RoleQuick's Chrome Web Store proof no longer render anywhere. The last two are OPEN
+and flagged to Mehek, not decided. Several receipt-card CSS classes
+(`.receipt-desc`, `.receipt-making`, `.metric-sourced`, and friends) are orphaned
+pending that decision.
 
 ## 3. Leading (`Leading.tsx`) - id `leading`
 Three verb-first, compressed lines with one count-up each (VCA students, Spark $14K,

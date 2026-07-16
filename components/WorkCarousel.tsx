@@ -7,6 +7,7 @@
 // to a plain scrollable row under prefers-reduced-motion.
 import { useEffect, useRef } from "react";
 import { COUNTS } from "../content/counts";
+import MoonTitle from "./MoonTitle";
 
 interface Card {
   slug: string; // receipt anchor
@@ -80,6 +81,12 @@ const CARDS: Card[] = [
     phone: true,
   },
 ];
+
+// The reel IS the shelf (Mehek ruling, 2026-07-16): these six carry card-level
+// emphasis here, so Receipts renders only the remainder and never repeats them.
+// Exported so the two sections can never drift: add a card here and it leaves
+// the receipts in the same commit.
+export const CARD_SLUGS: readonly string[] = CARDS.map((c) => c.slug);
 
 function ProductCard({ card, ariaHidden }: { card: Card; ariaHidden?: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -325,12 +332,12 @@ export default function WorkCarousel() {
   }, []);
 
   return (
-    <section className="scene work-carousel" id="flagships" aria-label="The work">
+    <section className="scene work-carousel" id="flagships" aria-label="Highlight reel">
+      {/* One oversized kinetic line, ink on paper: the eyebrow and the count
+          line both went (Mehek, 2026-07-16). The count claim is not lost, it
+          still lives in the hero and in the hint below. */}
       <div className="wrap">
-        <p className="eyebrow reveal">The work</p>
-        <p className="car-count-line reveal">
-          <span className="num">{COUNTS.shipped}</span> shipped projects so far.
-        </p>
+        <MoonTitle text="Highlight reel" />
       </div>
       <div className="car-viewport">
         <div className="car-track" ref={trackRef}>

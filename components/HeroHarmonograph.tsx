@@ -8,22 +8,11 @@
 // depends on the cursor, so it can never fragment mid-stroke the way bending
 // it in place did. A letter key reseeds it. Reduced-motion: a static figure,
 // moon parked.
+// The figure, the moon, and the trail tuning now live in lib/harmonograph (and
+// carry their rationale with them), because MoonTitle draws the same hand on
+// the reel's title and the two must never drift apart.
 import { useEffect, useRef } from "react";
-
-interface Params {
-  a: number; b: number; c: number; d: number;
-  p1: number; p2: number; p3: number; p4: number;
-}
-
-function seed(): Params {
-  const pick = () => 3 + Math.floor(Math.random() * 3); // 3, 4, or 5 (denser loops)
-  const det = () => (Math.random() - 0.5) * 0.006; // tiny detune -> slow precession
-  const ph = () => Math.random() * Math.PI * 2;
-  return {
-    a: pick() + det(), b: pick() + det(), c: pick() + det(), d: pick() + det(),
-    p1: ph(), p2: ph(), p3: ph(), p4: ph(),
-  };
-}
+import { MAX_TRAIL, drawMoon, point, seed, strokeTrail } from "../lib/harmonograph";
 
 export default function HeroHarmonograph() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -96,22 +85,8 @@ export default function HeroHarmonograph() {
       });
     };
 
-    const point = (t: number): [number, number] => {
-      const { a, b, c, d, p1, p2, p3, p4 } = params;
-      const x = cx + A * 0.5 * (Math.sin(a * t + p1) + Math.sin(b * t + p2));
-      const y = cy + A * 0.5 * (Math.sin(c * t + p3) + Math.sin(d * t + p4));
-      return [x, y];
-    };
-
-    const drawMoon = (x: number, y: number, r: number, glow: number) => {
-      ctx.beginPath();
-      ctx.fillStyle = "rgba(24,20,12,0.92)";
-      ctx.shadowColor = "rgba(24,20,12,0.35)";
-      ctx.shadowBlur = 3 + glow * 5;
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
-    };
+    // the hero's field is roughly square, so both axes share one amplitude
+    const at = (t: number): [number, number] => point(params, t, cx, cy, A, A);
 
     const drawStatic = () => {
       ctx.clearRect(0, 0, w, h);
@@ -119,13 +94,13 @@ export default function HeroHarmonograph() {
       ctx.strokeStyle = "rgba(24,20,12,0.14)";
       ctx.beginPath();
       for (let tt = 0; tt < 120; tt += 0.01) {
-        const [x, y] = point(tt);
+        const [x, y] = at(tt);
         if (tt === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
       ctx.stroke();
-      const [mx, my] = point(42);
-      drawMoon(mx, my, 3, 0);
+      const [mx, my] = at(42);
+      drawMoon(ctx, mx, my, 3, 0);
       setMoon(mx, my);
       setActiveLine(my);
     };
@@ -149,25 +124,9 @@ export default function HeroHarmonograph() {
       return () => window.removeEventListener("resize", resize);
     }
 
-    // A harmonograph is a mathematically space-filling curve — given enough
-    // time it densely weaves through its whole bounding region. An
-    // exponential-decay "comet trail" (erase X% per frame) can't cap that:
-    // measured 0.03-0.4 erase all settled at ~6-7% canvas coverage (the curve
-    // revisits the same screen area before old paint decays below the 8-bit
-    // floor, so it never truly clears) vs. terishim.com's simple orbit-
-    // ellipse at 0.3% (24x sparser, since a 1-D ellipse only ever re-paints
-    // its own ring). Worse, the erase-rate-vs-coverage relationship has a
-    // knife-edge bifurcation, not a gradient: 0.48 gave 4.4% coverage, 0.52
-    // gave 0.019% (fully invisible) — a 0.04 change flips between "still
-    // hazy" and "vanished," too fragile to tune reliably.
-    //
-    // Mehek: keep the harmonograph (not the ellipse), but shrink its visible
-    // memory drastically. Fixed-length trail buffer instead: only the last
-    // MAX_TRAIL points are ever drawn, redrawn fresh every frame (full
-    // clearRect, not a fade), with alpha tapering along the tail. This makes
-    // "how much memory" an exact, stable point count, not a threshold to
-    // chase.
-    const MAX_TRAIL = 600;
+    // Mehek: keep the harmonograph (not an orbit ellipse), but shrink its
+    // visible memory drastically. The fixed-length trail buffer and its
+    // measured stroke tuning live in lib/harmonograph, with the full rationale.
     const trail: [number, number][] = [];
 
     let t = 0, started = false, raf = 0;
@@ -177,45 +136,22 @@ export default function HeroHarmonograph() {
       hover += (hoverTarget - hover) * 0.06;
 
       if (!started) {
-        trail.push(point(t));
+        trail.push(at(t));
         started = true;
       }
       // hovering quickens the draw a little (up to ~1.8x), not the shape
       const speed = 0.001 * (1 + hover * 0.8);
       for (let i = 0; i < 4; i++) {
         t += speed;
-        trail.push(point(t));
+        trail.push(at(t));
       }
       while (trail.length > MAX_TRAIL) trail.shift();
 
       ctx.clearRect(0, 0, w, h);
-
-      // Re-measured against the LIVE terishim.com canvas (ctx.lineWidth /
-      // ctx.strokeStyle read directly off their context, not guessed):
-      // lineWidth 0.9, base alpha 0.22, lineCap butt, no shadowBlur, no
-      // filter. Going thinner than ~0.3 width + ultra-low alpha (what we'd
-      // tried) starves the anti-aliased coverage so badly the line renders
-      // as a broken, inconsistent scratch instead of a smooth hairline — the
-      // softness is supposed to come entirely from the no-dpr canvas
-      // blurring a CONSISTENTLY covered line, not from starving the line
-      // itself. Alpha now tapers per-segment from that 0.22 at the head
-      // (near the moon) down to 0 at the tail, drawn oldest-first so newer
-      // segments layer on top.
-      ctx.lineWidth = 0.9;
-      ctx.lineCap = "butt";
-      for (let i = 1; i < trail.length; i++) {
-        const age = 1 - i / trail.length; // 0 at head, ~1 at oldest
-        const segAlpha = 0.22 * (1 - age);
-        if (segAlpha <= 0.002) continue;
-        ctx.strokeStyle = `rgba(24,20,12,${segAlpha.toFixed(3)})`;
-        ctx.beginPath();
-        ctx.moveTo(trail[i - 1][0], trail[i - 1][1]);
-        ctx.lineTo(trail[i][0], trail[i][1]);
-        ctx.stroke();
-      }
+      strokeTrail(ctx, trail);
 
       const [lx, ly] = trail[trail.length - 1];
-      drawMoon(lx, ly, 3, hover);
+      drawMoon(ctx, lx, ly, 3, hover);
       setMoon(lx, ly);
       setActiveLine(ly);
       // hovering brightens the moonlight pool (see .hero-moonlight in CSS)

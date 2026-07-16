@@ -195,6 +195,76 @@
   box-shadow: 0 0 0 1px var(--amber), 0 0 40px -10px var(--amber-glow);
 }
 .receipt-tomb { opacity: 0.82; border-style: dashed; }
+
+/* ---- PROOF-FIRST card (Mehek ruling, 2026-07-16) ----------------------
+   The anatomy is inverted: the verified fact is the hero, in ember display
+   type, and the name reads underneath it. Rule 1 holds without effort here,
+   because the only coloured thing on the card is, by construction, the fact.
+   ---------------------------------------------------------------------- */
+.receipt.proof { padding: 22px 22px 18px; gap: 0; }
+/* One hero fact per card (DO #2). A second metric is allowed to ride along as
+   context (LetterStory's 370-of-651), but it renders subordinate: two facts at
+   equal size read as two heroes and the card stops having a point. */
+.proof-lead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 26px; }
+.proof-fact:not(:first-child) .proof-stat { font-size: 1.15rem; }
+.proof-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+}
+.proof-stat {
+  font-family: var(--font-display);
+  color: var(--amber);
+  font-size: 2.3rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  /* a non-numeric fact ("Chrome Web Store") must not blow the card open */
+  text-wrap: balance;
+}
+.proof-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.proof-sourced .proof-label { color: var(--text-faint); text-decoration: underline dotted var(--line-strong); text-underline-offset: 3px; }
+.proof-sourced:hover .proof-label,
+.proof-sourced:focus-visible .proof-label { color: var(--amber); text-decoration-color: var(--amber); }
+.proof-sourced:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 3px; }
+.proof-rule { border: 0; border-top: 1px solid var(--line); margin: 18px 0 16px; width: 100%; }
+.receipt.proof .receipt-title { font-size: 1.2rem; margin-bottom: 5px; }
+.receipt.proof .receipt-gloss { margin: 0 0 16px; }
+.proof-foot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.proof-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.proof-nda {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+}
+
 .receipt-top {
   display: flex;
   justify-content: space-between;
@@ -284,13 +354,81 @@
 
 /* ---------- Scene 2: THE WORK carousel ---------- */
 .work-carousel { padding: 12vh 0 10vh; overflow: hidden; }
-.car-count-line {
+
+/* MOONRISE title (Mehek, 2026-07-16). The hero's device, compressed to one
+   line: the eyebrow and the count line are gone and the section opens on a
+   single oversized kinetic line, ink on paper (§5 rule 3, title-card rhythm).
+   Ink only, never ember: rule 1 reserves the accent for verified facts, and a
+   section heading is not one. */
+.moon-title {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 48px;
+  isolation: isolate;
+}
+.moon-title h2 {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.1;
   letter-spacing: -0.03em;
-  margin: 6px 0 48px;
+  margin: 0;
+  padding: 0.02em 0.03em 0.08em;
 }
-.car-count-line .num { color: var(--amber); }
+/* The canvas overhangs the words horizontally so the moon can run off the ends
+   of the line, but barely at all vertically: it must ride THROUGH the type, not
+   above it. Keep in sync with INSET_X / INSET_Y in MoonTitle.tsx. */
+.mt-harmo {
+  position: absolute;
+  top: -14px;
+  left: -26px;
+  width: calc(100% + 52px);
+  height: calc(100% + 28px);
+  z-index: 0;
+  pointer-events: none;
+}
+/* the same cool moonlight as the hero: silver-blue with a whisper-warm core */
+.mt-light {
+  position: absolute;
+  z-index: 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  left: var(--moon-x, -999px);
+  top: var(--moon-y, -999px);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 252, 244, 0.5) 0%,
+    rgba(214, 226, 240, 0.42) 30%,
+    rgba(224, 231, 240, 0.18) 55%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+/* ghost: the title barely present in the paper (and the real SSR text) */
+.mt-ghost {
+  position: relative;
+  z-index: 1;
+  color: rgba(27, 26, 23, 0.11);
+}
+/* lit: full ink, revealed only where the moonlight falls */
+.mt-lit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  color: var(--text);
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle 130px at var(--moon-x) var(--moon-y), #000 0%, rgba(0, 0, 0, 0.55) 52%, transparent 78%);
+  mask-image: radial-gradient(circle 130px at var(--moon-x) var(--moon-y), #000 0%, rgba(0, 0, 0, 0.55) 52%, transparent 78%);
+}
+@media (prefers-reduced-motion: reduce) {
+  /* static twin: the title in full ink, no moon, no reveal gimmick */
+  .mt-ghost { color: var(--text); }
+  .mt-lit,
+  .mt-light,
+  .mt-harmo { display: none; }
+}
 .car-viewport { overflow: hidden; }
 .car-track {
   display: flex;
