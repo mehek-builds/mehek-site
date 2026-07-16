@@ -12,10 +12,10 @@ import { useEffect, useRef, useState } from "react";
 const CAPTIONS: { id: string; text: string }[] = [
   { id: "top", text: "Mehek Mandal · building products" },
   { id: "flagships", text: "The work · shipped, roughly one a week" },
-  { id: "work", text: "The receipts · every node, with the proof" },
+  // the receipts caption went with the receipts (Mehek, 2026-07-16): they are a
+  // route now, so the film no longer has a #work section to narrate
   { id: "leading", text: "Leading · people, budgets, and programs" },
   { id: "route", text: "The route · Delhi · Dubai · Los Angeles" },
-  { id: "person", text: "The person" },
   { id: "now", text: "Now · currently building" },
 ];
 

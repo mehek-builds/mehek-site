@@ -211,35 +211,43 @@ a {
   box-shadow: 0 1px 2px rgba(24, 20, 12, 0.04), 0 12px 30px -18px rgba(24, 20, 12, 0.18);
 }
 
-/* Buttons / CTAs */
+/* CTAs, REDESIGNED 2026-07-16 (Mehek: "I don't like the black fill on the
+   boxes... make the section cleaner"). The filled pill was the last dark panel
+   on the paper canvas, which §5 rule 4 bars outright: depth comes from
+   whitespace, hairline borders and soft shadows, NEVER from heavy chrome or
+   dark panels. So these stopped pretending to be buttons. They are links, and
+   they now look like links: ink on paper under a hairline, the same idiom as
+   the reel's door (.car-hint-link) and the header tabs (.site-tab). No fill, no
+   pill, no lift. Hierarchy is carried by ink weight instead of by a black
+   blob. */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-text);
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding: 11px 20px;
-  border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  color: var(--text);
-  transition: border-color 0.25s var(--ease-ui), background 0.25s var(--ease-ui), transform 0.25s var(--ease-ui);
-  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 2px 0 6px;
+  border: 0;
+  border-bottom: 1px solid var(--line-strong);
+  border-radius: 0;
   background: transparent;
+  cursor: pointer;
+  transition: color 0.25s var(--ease-ui), border-color 0.25s var(--ease-ui);
 }
 .btn:hover {
-  border-color: var(--text);
-  transform: translateY(-1px);
+  color: var(--text);
+  border-bottom-color: var(--text);
 }
-/* Ink fill, not ember: the accent stays reserved for verified facts (design law 1). */
+.btn:focus-visible { outline: 2px solid var(--text); outline-offset: 5px; }
+/* The primary action keeps its weight in INK, not in a fill. Still never ember:
+   the accent stays reserved for verified facts (design law 1). */
 .btn-primary {
-  background: var(--text);
-  color: var(--bg);
-  border-color: var(--text);
-}
-.btn-primary:hover {
-  background: #000;
-  border-color: #000;
+  color: var(--text);
+  font-weight: 560;
+  border-bottom-color: var(--text);
 }
 
 .eyebrow {

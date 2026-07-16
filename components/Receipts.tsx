@@ -16,6 +16,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { ITEMS, PILLARS, type Item, type Pillar } from "../content/items";
 import { CARD_SLUGS } from "./WorkCarousel";
+import OriginGlobe from "./OriginGlobe";
+import SiteTabs from "./SiteTabs";
 
 const STATE_NOTE: Record<Item["status"], string> = {
   live: "Live",
@@ -155,14 +157,25 @@ export default function Receipts() {
     window.history.replaceState(null, "", url);
   };
 
-  const shown = useMemo(
+  // The reel is the shelf; this page is everything it does not carry. Derived
+  // from the same data + CARD_SLUGS, so the reel's "plus N more" door and this
+  // page can never disagree about the number.
+  const remainder = useMemo(
     () =>
       [...ITEMS]
-        // the reel above is the shelf; this section is what it doesn't carry
         .filter((i) => !CARD_SLUGS.includes(i.slug))
-        .filter((i) => active === "all" || i.pillar === active)
         .sort((a, b) => b.date.localeCompare(a.date)),
-    [active]
+    []
+  );
+  const shownAll = remainder.length;
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { all: remainder.length };
+    for (const i of remainder) c[i.pillar] = (c[i.pillar] ?? 0) + 1;
+    return c;
+  }, [remainder]);
+  const shown = useMemo(
+    () => remainder.filter((i) => active === "all" || i.pillar === active),
+    [remainder, active]
   );
   // A card must lead with a verified fact. No fact, no card: those drop to a
   // one-line row rather than opening on an empty hero slot.
@@ -170,55 +183,71 @@ export default function Receipts() {
   const rest = shown.filter((i) => (i.metrics?.length ?? 0) === 0);
 
   return (
-    <section className="scene receipts" id="work" aria-label="The receipts">
+    <main className="receipts-page">
+      {/* Same header as every surface: corner globe left, route tabs right. */}
+      <OriginGlobe stamp markHref="/" />
+      <SiteTabs />
       <div className="wrap">
-        <div className="receipts-head">
+        <header className="receipts-head">
           <p className="eyebrow">The receipts</p>
-          {/* was "Every node above, with the proof.", which stopped being true
-              the moment this section became the remainder rather than the index */}
+          <h1 className="titlecard receipts-title">Everything else.</h1>
+          {/* The rate claim's evidence lives here now, so the count is stated
+              rather than left implicit: this page IS the answer to "one a week?" */}
           <p className="receipts-sub">
-            Everything the reel doesn&rsquo;t show, with the proof.
+            {shownAll} projects the highlight reel doesn&rsquo;t carry, each with
+            whatever proof exists for it.
           </p>
-          <div className="chips" role="tablist" aria-label="Filter by pillar">
+        </header>
+
+        <div className="receipts-body">
+          {/* Yeji's left-rail FILTER (Mehek, 2026-07-16): the chips became a
+              vertical rail so the list reads as an index, not a toolbar. Same
+              ?pillar= URL state and the same pillars as before. */}
+          <nav className="rfilter" aria-label="Filter by pillar">
+            <p className="rfilter-head">Filter</p>
             <button
-              className={`chip ${active === "all" ? "chip-on" : ""}`}
+              className={`rfilter-item ${active === "all" ? "rfilter-on" : ""}`}
               onClick={() => setPillar("all")}
-              role="tab"
-              aria-selected={active === "all"}
+              aria-pressed={active === "all"}
             >
-              All
+              Everything <span className="rfilter-n">{counts.all}</span>
             </button>
             {PILLARS.map((d) => (
               <button
                 key={d.key}
-                className={`chip ${active === d.key ? "chip-on" : ""}`}
+                className={`rfilter-item ${active === d.key ? "rfilter-on" : ""}`}
                 onClick={() => setPillar(d.key)}
-                role="tab"
-                aria-selected={active === d.key}
+                aria-pressed={active === d.key}
               >
-                {d.label}
+                {d.label} <span className="rfilter-n">{counts[d.key] ?? 0}</span>
               </button>
             ))}
+          </nav>
+
+          <div className="receipts-main">
+            {proven.length > 0 && (
+              <div className="receipt-grid">
+                {proven.map((item) => (
+                  <ProofCard key={item.slug} item={item} />
+                ))}
+              </div>
+            )}
+
+            {rest.length > 0 && (
+              <div className="ledger">
+                <p className="ledger-head">The rest of the record</p>
+                {rest.map((item) => (
+                  <LedgerRow key={item.slug} item={item} />
+                ))}
+              </div>
+            )}
+
+            {proven.length === 0 && rest.length === 0 && (
+              <p className="receipts-empty">Nothing under this filter yet.</p>
+            )}
           </div>
         </div>
-
-        {proven.length > 0 && (
-          <div className="receipt-grid">
-            {proven.map((item) => (
-              <ProofCard key={item.slug} item={item} />
-            ))}
-          </div>
-        )}
-
-        {rest.length > 0 && (
-          <div className="ledger">
-            <p className="ledger-head">The rest of the record</p>
-            {rest.map((item) => (
-              <LedgerRow key={item.slug} item={item} />
-            ))}
-          </div>
-        )}
       </div>
-    </section>
+    </main>
   );
 }

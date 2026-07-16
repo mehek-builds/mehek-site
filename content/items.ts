@@ -4,7 +4,9 @@
 // cannot back in a phone call. Every oneLiner IS a stranger-readable gloss;
 // every proper noun in copy is either traditionally recognized or glossed.
 
-export type Pillar = "ventures" | "inventions" | "leadership" | "content";
+// `content` was removed 2026-07-16 (Mehek): see the eviction note below. Keeping
+// it in the union would let a future item quietly re-open the pillar.
+export type Pillar = "ventures" | "inventions" | "leadership";
 
 // Honest state of the thing. Drives the receipt state note and the hero counts.
 // "role" = a position led/held (leadership orgs), not a shipped artifact.
@@ -66,7 +68,6 @@ export const PILLARS: PillarDef[] = [
   { key: "ventures", label: "Ventures", gloss: "companies and client work with real money at stake", lum: 3 },
   { key: "inventions", label: "Inventions", gloss: "products and tools shipped, roughly one a week", lum: 2 },
   { key: "leadership", label: "Leading", gloss: "people, budgets, and programs led", lum: 1 },
-  { key: "content", label: "Content", gloss: "building in public as @mehek.builds", lum: 0 },
 ];
 
 export const ITEMS: Item[] = [
@@ -278,23 +279,11 @@ export const ITEMS: Item[] = [
     status: "live",
     links: [{ label: "Live", url: "https://dubai-internship-tracker.vercel.app" }],
   },
-  {
-    slug: "build-in-public",
-    title: "Build-in-public engine",
-    pillar: "content",
-    oneLiner: "@mehek.builds: one product a week, documented.",
-    description:
-      "The audience engine behind @mehek.builds: one product a week, documented in public.",
-    date: "2026-06-16",
-    weight: 3,
-    status: "live",
-    links: [{ label: "X", url: "https://x.com/MehekBuilds" }],
-    makingOf: [
-      "One product a week, documented publicly as @mehek.builds.",
-      "Timed posting system tuned to US startup and AI-builder audiences.",
-      "Weekly shoot batches feed the content engine.",
-    ],
-  },
+  // EVICTED 2026-07-16 (Mehek): the "Build-in-public engine" item, and with it
+  // the whole `content` pillar. "This does not need to be publicly said."
+  // Naming the audience machinery (timed posting tuned to US builders, weekly
+  // shoot batches) undercuts the work it describes. The channel still speaks for
+  // itself: @mehek.builds stays linked from the footer.
   {
     slug: "icra-validator",
     title: "ICRA rationale validator",

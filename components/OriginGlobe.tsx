@@ -42,7 +42,15 @@ type V3 = [number, number, number];
 // the site's persistent mark, fixed top-left on every scene (no zoom, quieter
 // ink, smaller pins). Clicking it returns to the hero, logo-style (Mehek call
 // 2026-07-13); it hides below 820px alongside the sticky nav.
-export default function OriginGlobe({ stamp = false }: { stamp?: boolean }) {
+// `markHref` lets the corner mark point home from a second surface (/about),
+// where "#top" would be a no-op. On the film it stays the hero anchor.
+export default function OriginGlobe({
+  stamp = false,
+  markHref = "#top",
+}: {
+  stamp?: boolean;
+  markHref?: string;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -564,8 +572,8 @@ export default function OriginGlobe({ stamp = false }: { stamp?: boolean }) {
     return (
       <a
         className="globe-mark"
-        href="#top"
-        aria-label="Back to the top"
+        href={markHref}
+        aria-label={markHref === "#top" ? "Back to the top" : "Back to the work"}
         ref={(el) => { sectionRef.current = el; }}
       >
         <div className="globe-mark-stage" ref={stageRef}>

@@ -3,11 +3,13 @@
 // instant anchor navigation, never blocked by animation.
 import { useEffect, useState } from "react";
 
+// The film's scenes, in order. Person left this list on 2026-07-16 (Mehek's
+// option-C ruling): it is a route now, not a scene. This nav scrubs scenes; the
+// header tabs (SiteTabs) carry the routes. One job each, no overlap.
 const SECTIONS = [
   { id: "flagships", label: "Work" },
   { id: "leading", label: "Leading" },
   { id: "route", label: "Route" },
-  { id: "person", label: "Person" },
   { id: "now", label: "Now" },
 ];
 

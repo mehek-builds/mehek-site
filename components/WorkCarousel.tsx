@@ -6,6 +6,7 @@
 // duplicated half), pauses on hover so the links are clickable, and falls back
 // to a plain scrollable row under prefers-reduced-motion.
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { COUNTS } from "../content/counts";
 import MoonTitle from "./MoonTitle";
 
@@ -350,8 +351,16 @@ export default function WorkCarousel() {
           ))}
         </div>
       </div>
+      {/* THE DOOR (Mehek ruling, 2026-07-16). The receipts moved to their own
+          tab, so this stopped being a scroll cue and became the only on-page
+          route to the remainder. It is load-bearing: the rate claim is stated in
+          the hero but its evidence now lives one click away, so this line is
+          what keeps "shipped roughly one a week" checkable. Count still derives
+          from the data, so it can never drift from what /receipts renders. */}
       <p className="wrap car-hint reveal">
-        plus {COUNTS.total - CARDS.length} more in the receipts below ↓
+        <Link className="car-hint-link" href="/receipts">
+          plus {COUNTS.total - CARDS.length} more, with the proof →
+        </Link>
       </p>
     </section>
   );

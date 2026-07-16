@@ -2,37 +2,39 @@
 // Scene 6 — NOW + colophon / footer. The live widget bakes at build from
 // now.json (anti-rot: degrades to a still-true "Latest ship" line past 21 days).
 // Two CTAs, colophon, and the terminal easter egg.
+import Link from "next/link";
 import Terminal from "./Terminal";
-import NowRotator from "./NowRotator";
 import { getNow, BUILD_DATE } from "../content/now";
 
 export default function NowFooter() {
   const now = getNow(BUILD_DATE);
-  // Rotating status: FACTUAL present-tense lines built from real now data. No
-  // invented state; each is true at build time.
-  const statusLines = [
-    now.building
-      ? `Building ${now.building.name}, ${now.building.gloss}`
-      : `Last ship: ${now.lastShip.name}, ${now.lastShip.date}`,
-    `Last ship: ${now.lastShip.name}, ${now.lastShip.gloss}`,
-    "Building in public as @mehek.builds",
-  ];
   return (
     <footer className="scene nowfoot" id="now" aria-label="Now">
       <div className="wrap">
-        <div className="now-widget glass reveal">
-          <span className="now-tag">
-            <span className="node-live" aria-hidden="true" /> now
-          </span>
-          {now.stale ? (
-            <p className="now-text">
-              Latest ship: <b>{now.lastShip.name}</b>, {now.lastShip.gloss},{" "}
-              {now.lastShip.date}.
-            </p>
-          ) : (
-            <p className="now-text">
-              Currently building <b>{now.building!.name}</b>, {now.building!.gloss}.
-              Last ship:{" "}
+        {/* REDESIGNED 2026-07-16 (Mehek). Both halves of the Jacqueline import
+            are gone: the boxed status object (the card) and the rotating status
+            line. What is left is the site's own language, a hairline row set
+            keyed by mono labels, the same shape as a receipts ledger row. The
+            rotator was also redundant: its strongest line just repeated the
+            last-ship sentence sitting directly above it. Ember stays on the live
+            node and the two checkable links (law 1: live signals and verified
+            facts), never on the labels or the rules. */}
+        <dl className="now-widget reveal">
+          {!now.stale && (
+            <div className="now-row">
+              <dt className="now-key">
+                <span className="node-live" aria-hidden="true" /> Now
+              </dt>
+              <dd className="now-val">
+                Building <b>{now.building!.name}</b>, {now.building!.gloss}.
+              </dd>
+            </div>
+          )}
+          <div className="now-row">
+            {/* stale (now.json older than 21 days at build): the "currently"
+                claim drops and this row carries a statement that stays true */}
+            <dt className="now-key">{now.stale ? "Latest ship" : "Last ship"}</dt>
+            <dd className="now-val">
               {now.lastShip.url ? (
                 <a className="now-link" href={now.lastShip.url} target="_blank" rel="noreferrer">
                   {now.lastShip.name}
@@ -40,20 +42,28 @@ export default function NowFooter() {
               ) : (
                 <b>{now.lastShip.name}</b>
               )}
-              , {now.lastShip.gloss}, {now.lastShip.date}.
-            </p>
-          )}
+              , {now.lastShip.gloss}.
+              <span className="now-date">{now.lastShip.date}</span>
+            </dd>
+          </div>
           {now.post && (
-            <a className="now-post" href={now.post.url} target="_blank" rel="noreferrer">
-              {now.post.label} ↗
-            </a>
+            <div className="now-row">
+              <dt className="now-key">This week</dt>
+              <dd className="now-val">
+                <a className="now-post" href={now.post.url} target="_blank" rel="noreferrer">
+                  {now.post.label} ↗
+                </a>
+              </dd>
+            </div>
           )}
-          <NowRotator lines={statusLines} />
-        </div>
+        </dl>
 
         <div className="now-cta reveal">
           <h2 className="now-h">Let&apos;s talk.</h2>
-          <div className="hero-cta">
+          {/* was .hero-cta: a dead class name left over from a hero CTA that no
+              longer exists, and it carried NO layout, so these two sat as bare
+              inline links separated by a text space. That was the crowding. */}
+          <div className="now-actions">
             <a className="btn btn-primary" href="mailto:mehekman@usc.edu">
               Get in touch
             </a>
@@ -69,6 +79,7 @@ export default function NowFooter() {
             <kbd>/</kbd> for the terminal.
           </p>
           <div className="colophon-links">
+            <Link href="/about">About</Link>
             <a href="https://github.com/mehek-builds" target="_blank" rel="noreferrer">
               GitHub
             </a>
