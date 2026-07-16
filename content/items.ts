@@ -282,8 +282,9 @@ export const ITEMS: Item[] = [
   // EVICTED 2026-07-16 (Mehek): the "Build-in-public engine" item, and with it
   // the whole `content` pillar. "This does not need to be publicly said."
   // Naming the audience machinery (timed posting tuned to US builders, weekly
-  // shoot batches) undercuts the work it describes. The channel still speaks for
-  // itself: @mehek.builds stays linked from the footer.
+  // shoot batches) undercuts the work it describes. The channel speaks for
+  // itself (2026-07-16: the footer's Instagram link is gone too; no
+  // @mehek.builds anywhere on the site, the CTA is email).
   {
     slug: "icra-validator",
     title: "ICRA rationale validator",

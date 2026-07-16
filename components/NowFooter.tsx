@@ -67,8 +67,10 @@ export default function NowFooter() {
             <a className="btn btn-primary" href="mailto:mehekman@usc.edu">
               Get in touch
             </a>
-            <a className="btn" href="https://www.instagram.com/mehek.builds" target="_blank" rel="noreferrer">
-              Follow along
+            {/* Was "Follow along" -> Instagram. Mehek, 2026-07-16: no
+                @mehek.builds on the site; the CTA is email instead. */}
+            <a className="btn" href="mailto:mehekbuilds@gmail.com">
+              Reach out
             </a>
           </div>
         </div>
