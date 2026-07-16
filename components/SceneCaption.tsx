@@ -14,7 +14,6 @@ const CAPTIONS: { id: string; text: string }[] = [
   { id: "flagships", text: "The work · shipped, roughly one a week" },
   // the receipts caption went with the receipts (Mehek, 2026-07-16): they are a
   // route now, so the film no longer has a #work section to narrate
-  { id: "route", text: "The route · Delhi · Dubai · Los Angeles" },
   { id: "now", text: "Now · currently building" },
 ];
 

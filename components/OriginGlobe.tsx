@@ -583,6 +583,10 @@ export default function OriginGlobe({
     );
   }
 
+  // DORMANT since 2026-07-16 (Mehek: the globe lives in the corner mark only,
+  // no Route scene). Nothing mounts this branch; page.tsx renders only the
+  // stamp. Kept intact (with its .route CSS removed) so the scene can be
+  // revived from git history if ever re-ruled.
   return (
     <section
       className="scene route"

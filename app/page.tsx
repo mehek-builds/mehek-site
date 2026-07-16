@@ -21,7 +21,6 @@ export default function Home() {
       <SiteTabs />
       <Hero />
       <WorkCarousel />
-      <OriginGlobe />
       <NowFooter />
     </main>
   );

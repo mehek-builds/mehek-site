@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 // The film's scenes, in order. Person left this list on 2026-07-16 (Mehek's
 // option-C ruling): it is a route now, not a scene. Leading left the same day
 // (Mehek directive): its items live under the receipts page's Leading rail
-// tab instead of a main-page scene. This nav scrubs scenes; the header tabs
-// (SiteTabs) carry the routes. One job each, no overlap.
+// tab instead of a main-page scene. The Route scene left the same day too
+// (Mehek: the globe lives in the corner mark only). This nav scrubs scenes;
+// the header tabs (SiteTabs) carry the routes. One job each, no overlap.
 const SECTIONS = [
   { id: "flagships", label: "Work" },
-  { id: "route", label: "Route" },
   { id: "now", label: "Now" },
 ];
 
