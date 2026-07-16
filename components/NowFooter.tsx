@@ -63,13 +63,12 @@ export default function NowFooter() {
           {/* was .hero-cta: a dead class name left over from a hero CTA that no
               longer exists, and it carried NO layout, so these two sat as bare
               inline links separated by a text space. That was the crowding. */}
+          {/* ONE door (Mehek, 2026-07-16): every contact points at
+              mehekbuilds@gmail.com. This collapsed "Get in touch" (usc.edu)
+              + "Reach out" into a single primary CTA; the Instagram
+              "Follow along" left earlier the same day. */}
           <div className="now-actions">
-            <a className="btn btn-primary" href="mailto:mehekman@usc.edu">
-              Get in touch
-            </a>
-            {/* Was "Follow along" -> Instagram. Mehek, 2026-07-16: no
-                @mehek.builds on the site; the CTA is email instead. */}
-            <a className="btn" href="mailto:mehekbuilds@gmail.com">
+            <a className="btn btn-primary" href="mailto:mehekbuilds@gmail.com">
               Reach out
             </a>
           </div>
@@ -90,7 +89,7 @@ export default function NowFooter() {
             <a href="https://www.linkedin.com/in/mehekmandal" target="_blank" rel="noreferrer">
               LinkedIn
             </a>
-            <a href="mailto:mehekman@usc.edu">Email</a>
+            <a href="mailto:mehekbuilds@gmail.com">Email</a>
           </div>
           <p className="colophon-fine">Mehek Mandal · {BUILD_DATE.slice(0, 4)}</p>
         </div>

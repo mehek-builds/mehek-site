@@ -166,7 +166,7 @@ export default function AboutBody() {
               <Link className="btn btn-primary" href="/#flagships">
                 See the work
               </Link>
-              <a className="btn" href="mailto:mehekman@usc.edu">
+              <a className="btn" href="mailto:mehekbuilds@gmail.com">
                 Get in touch
               </a>
             </div>
