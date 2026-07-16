@@ -74,10 +74,9 @@ export default function NowFooter() {
         </div>
 
         <div className="colophon">
-          <p>
-            One of the weekly ships, built on the craft I ship for clients. Press{" "}
-            <kbd>/</kbd> for the terminal.
-          </p>
+          {/* The "/" terminal stays mounted but is no longer advertised
+              (Mehek, 2026-07-16): a true easter egg now — explorers only. */}
+          <p>One of the weekly ships, built on the craft I ship for clients.</p>
           <div className="colophon-links">
             <Link href="/about">About</Link>
             <a href="https://github.com/mehek-builds" target="_blank" rel="noreferrer">
