@@ -24,11 +24,11 @@ interface Card {
 const CARDS: Card[] = [
   {
     slug: "rolequick",
-    name: "RoleQuick",
+    name: "Litos",
     gloss:
       "Autofills job applications: a Chrome extension, resume generation, and a full product dashboard.",
-    url: "https://role-quick-website.vercel.app",
-    urlLabel: "role-quick-website.vercel.app",
+    url: "https://trylitos.com",
+    urlLabel: "trylitos.com",
     poster: "/work/rolequick.jpg",
     video: "/work/rolequick.mp4",
   },

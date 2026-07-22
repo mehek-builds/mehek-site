@@ -394,9 +394,9 @@ export const ITEMS: Item[] = [
   },
   {
     slug: "rolequick",
-    title: "RoleQuick",
+    title: "Litos",
     pillar: "ventures",
-    oneLiner: "RoleQuick, a Chrome extension that autofills job applications.",
+    oneLiner: "Litos, a Chrome extension that autofills job applications.",
     description:
       "A job-application copilot: open a posting and it tailors the resume, fills the form, and drafts the outreach.",
     date: "2026-07-04",
@@ -412,7 +412,7 @@ export const ITEMS: Item[] = [
       },
     ],
     links: [
-      { label: "Live", url: "https://role-quick-website.vercel.app" },
+      { label: "Live", url: "https://trylitos.com" },
       {
         label: "Store",
         url: "https://chromewebstore.google.com/detail/rolequick-tailored-resume/bdbedbmkjpfioknfpmhookefabipjaad",
