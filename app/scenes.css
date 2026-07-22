@@ -813,7 +813,7 @@ video.win-shot { background: var(--bg-2); }
   --book-height: clamp(178px, 55vw, 210px);
   display: flex;
   align-items: flex-end;
-  gap: 4px;
+  gap: 5px;
   width: max-content;
   height: var(--book-height);
   margin: 0;
@@ -822,7 +822,7 @@ video.win-shot { background: var(--bg-2); }
 }
 .bookshelf-book {
   position: relative;
-  width: var(--spine-width);
+  width: max(var(--spine-width), 24px);
   height: var(--book-height);
   flex: 0 0 auto;
   transition: width 650ms var(--ease-reveal);
@@ -848,9 +848,7 @@ video.win-shot { background: var(--bg-2); }
 .bookshelf-trigger::before {
   content: "";
   position: absolute;
-  inset: 0 50% 0 auto;
-  width: max(100%, 44px);
-  transform: translateX(50%);
+  inset: 0;
 }
 .bookshelf-trigger:focus-visible {
   outline: 1px solid var(--text);
@@ -1209,6 +1207,102 @@ video.win-shot { background: var(--bg-2); }
   border: 0;
   font-size: 0.34rem;
 }
+
+.bookshelf-spine--superfreakonomics {
+  background:
+    linear-gradient(to bottom, #e9982e 0 10px, transparent 10px),
+    linear-gradient(to right, rgba(36, 67, 84, 0.08), transparent 43%, rgba(255, 255, 255, 0.34) 76%, rgba(36, 67, 84, 0.07)),
+    #f6f5ef;
+}
+.bookshelf-spine--superfreakonomics .bookshelf-spine-head { background: #79a928; }
+.bookshelf-spine--superfreakonomics .bookshelf-spine-title {
+  color: #0863a0;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.61rem;
+  font-weight: 900;
+  letter-spacing: -0.015em;
+}
+.bookshelf-spine--superfreakonomics .bookshelf-spine-subtitle { color: #4f5050; }
+.bookshelf-spine--superfreakonomics .bookshelf-spine-author { color: #0863a0; }
+.bookshelf-spine--superfreakonomics .bookshelf-spine-publisher {
+  color: #f6f5ef;
+  background: #0863a0;
+  border-color: #0863a0;
+}
+
+.bookshelf-spine--decode-and-conquer {
+  background:
+    radial-gradient(circle at 50% 29%, #f5ce45 0 8px, transparent 8.5px),
+    linear-gradient(160deg, transparent 0 41%, #787875 41% 54%, transparent 54%),
+    linear-gradient(to right, rgba(61, 61, 58, 0.08), transparent 43%, rgba(255, 255, 255, 0.32) 76%, rgba(61, 61, 58, 0.07)),
+    #f8f7f1;
+}
+.bookshelf-spine--decode-and-conquer .bookshelf-spine-head { background: #e62e31; }
+.bookshelf-spine--decode-and-conquer .bookshelf-spine-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.61rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+.bookshelf-spine--decode-and-conquer .bookshelf-spine-subtitle {
+  color: #545451;
+  opacity: 1;
+}
+.bookshelf-spine--decode-and-conquer .bookshelf-spine-author {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.43rem;
+}
+.bookshelf-spine--decode-and-conquer .bookshelf-spine-publisher { border: 0; }
+
+.bookshelf-spine--financial-crisis {
+  color: #f5f1e9;
+  background:
+    linear-gradient(to bottom, #d4c18c 0 15px, transparent 15px calc(100% - 24px), #ed222b calc(100% - 24px)),
+    linear-gradient(to right, rgba(0, 0, 0, 0.42), transparent 43%, rgba(255, 255, 255, 0.08) 76%, rgba(0, 0, 0, 0.35)),
+    #111212;
+}
+.bookshelf-spine--financial-crisis .bookshelf-spine-head { background: #ed222b; }
+.bookshelf-spine--financial-crisis .bookshelf-spine-title {
+  color: #ed3340;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+}
+.bookshelf-spine--financial-crisis .bookshelf-spine-subtitle { color: #f5f1e9; opacity: 1; }
+.bookshelf-spine--financial-crisis .bookshelf-spine-author { color: #f5f1e9; }
+.bookshelf-spine--financial-crisis .bookshelf-spine-publisher {
+  color: #111212;
+  background: #f5f1e9;
+  border-color: #f5f1e9;
+}
+
+.bookshelf-spine--thinking-fast-slow {
+  background:
+    linear-gradient(to bottom, transparent 0 31%, #d7992c 31% 33%, #171716 33% 35%, transparent 35%),
+    linear-gradient(to right, rgba(71, 66, 52, 0.08), transparent 43%, rgba(255, 255, 255, 0.34) 76%, rgba(71, 66, 52, 0.07)),
+    #f5f3eb;
+}
+.bookshelf-spine--thinking-fast-slow .bookshelf-spine-head { background: #171716; }
+.bookshelf-spine--thinking-fast-slow .bookshelf-spine-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.59rem;
+  font-weight: 400;
+  letter-spacing: 0.07em;
+}
+.bookshelf-spine--thinking-fast-slow .bookshelf-spine-subtitle { color: #55524a; }
+.bookshelf-spine--thinking-fast-slow .bookshelf-spine-author {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.43rem;
+}
+.bookshelf-spine--thinking-fast-slow .bookshelf-spine-publisher {
+  width: 14px;
+  min-height: 14px;
+  color: #f5f3eb;
+  background: #171716;
+  border: 0;
+  font-size: 0.31rem;
+}
 @media (hover: hover) and (pointer: fine) {
   .bookshelf-book:not([data-open]) .bookshelf-trigger:hover {
     transform: translateY(-5px);
@@ -1352,6 +1446,13 @@ video.win-shot { background: var(--bg-2); }
   .about-photo { max-width: 240px; position: static; }
   .about-head { margin-bottom: 5vh; }
   .about-lede { font-size: 1.1rem; }
+  .bookshelf-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+  .bookshelf-plank { width: max(100%, 720px); }
   .work-item-alt { direction: ltr; }
   .work-list { gap: 9vh; }
   .globe-mark { display: none; }
@@ -1369,10 +1470,11 @@ video.win-shot { background: var(--bg-2); }
   .bookshelf-list {
     --shelf-scale: 0.76;
     --book-height: 160px;
-    gap: 1px;
+    gap: 3px;
     padding-left: 4px;
     padding-right: 4px;
   }
+  .bookshelf-plank { width: 480px; }
   .bookshelf-annotation {
     display: grid;
     grid-template-columns: 1fr auto;

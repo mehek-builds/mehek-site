@@ -9,6 +9,10 @@
   jacket colors, rules, accent bands, and publisher marks.
 - Added *The Hard Thing About Hard Things*, *The 5 AM Club*, *The 4-Hour
   Workweek*, and *The Psychology of Money* with ISBN-matched cover art.
+- Added *SuperFreakonomics*, *Decode and Conquer*, *The Financial Crisis and the
+  Free Market Cure*, and *Thinking, Fast and Slow* with edition-matched covers
+  and custom spine treatments. Kept the existing *A Little History of
+  Economics* entry without duplicating it.
 
 ## 2026-07-22: RoleQuick rebrand to Litos
 

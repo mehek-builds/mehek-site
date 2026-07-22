@@ -20,6 +20,10 @@ rights.
 | `public/books/five-am-club.jpg` | *The 5 AM Club*, ISBN 9780008312855, [Google Books edition record](https://books.google.com/books/about/The_5_AM_Club_Own_Your_Morning_Elevate_Y.html?id=7W9bDwAAQBAJ) |
 | `public/books/four-hour-workweek.jpg` | *The 4-Hour Workweek*, ISBN 9780307465351, [Penguin Random House](https://www.penguinrandomhouse.com/books/49081/the-4-hour-workweek-expanded-and-updated-by-timothy-ferriss/) |
 | `public/books/psychology-of-money.jpg` | *The Psychology of Money*, ISBN 9780857197689, [Harriman House](https://www.harriman-house.com/psychologyofmoney) |
+| `public/books/superfreakonomics.jpg` | *SuperFreakonomics*, ISBN 9780060889579, [HarperCollins](https://www.harpercollins.com/products/superfreakonomics-steven-d-levittstephen-j-dubner) |
+| `public/books/decode-and-conquer.webp` | *Decode and Conquer*, fifth edition, ISBN 9789798281440, [Lewis C. Lin](https://www.lewis-lin.com/decode-and-conquer/) |
+| `public/books/financial-crisis-free-market-cure.jpg` | *The Financial Crisis and the Free Market Cure*, business classics edition, ISBN 9781260143454, [McGraw Hill](https://www.mheducation.com/highered/mhp/product/financial-crisis-free-market-cure-why-pure-capitalism-world-economy-s-only-hope.html) |
+| `public/books/thinking-fast-and-slow.jpg` | *Thinking, Fast and Slow*, ISBN 9780374275631, [Macmillan](https://us.macmillan.com/books/9780374275631/thinkingfastandslow/) |
 
 The accordion bookshelf interaction is inspired by the public
 [cali.so bookshelf](https://cali.so/) and was implemented for this site's own

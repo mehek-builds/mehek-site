@@ -212,6 +212,70 @@ const books: Book[] = [
     spineInk: "#22201e",
     url: "https://www.harriman-house.com/psychologyofmoney",
   },
+  {
+    title: "SuperFreakonomics",
+    spineTitle: "SUPERFREAKONOMICS",
+    author: "Steven D. Levitt and Stephen J. Dubner",
+    spineAuthor: "LEVITT & DUBNER",
+    spineSubtitle: "GLOBAL COOLING, PATRIOTIC PROSTITUTES, AND WHY SUICIDE BOMBERS SHOULD BUY LIFE INSURANCE",
+    spinePublisher: "WILLIAM MORROW",
+    spineDesign: "superfreakonomics",
+    spineWidth: 27,
+    cover: "/books/superfreakonomics.jpg",
+    coverWidth: 330,
+    coverHeight: 500,
+    spineColor: "#f6f5ef",
+    spineInk: "#0863a0",
+    url: "https://www.harpercollins.com/products/superfreakonomics-steven-d-levittstephen-j-dubner",
+  },
+  {
+    title: "Decode and Conquer",
+    spineTitle: "DECODE AND CONQUER",
+    author: "Lewis C. Lin",
+    spineAuthor: "LEWIS C. LIN",
+    spineSubtitle: "FIFTH EDITION",
+    spinePublisher: "IMPACT INTERVIEW",
+    spineDesign: "decode-and-conquer",
+    spineWidth: 31,
+    cover: "/books/decode-and-conquer.webp",
+    coverWidth: 1000,
+    coverHeight: 1430,
+    spineColor: "#f8f7f1",
+    spineInk: "#242422",
+    url: "https://www.lewis-lin.com/decode-and-conquer/",
+  },
+  {
+    title: "The Financial Crisis and the Free Market Cure",
+    spineTitle: "THE FINANCIAL CRISIS AND THE FREE MARKET CURE",
+    author: "John A. Allison",
+    spineAuthor: "JOHN A. ALLISON",
+    spineSubtitle: "WHY PURE CAPITALISM IS THE WORLD ECONOMY'S ONLY HOPE",
+    spinePublisher: "McGRAW HILL",
+    spineDesign: "financial-crisis",
+    spineWidth: 30,
+    cover: "/books/financial-crisis-free-market-cure.jpg",
+    coverWidth: 334,
+    coverHeight: 500,
+    spineColor: "#111212",
+    spineInk: "#f4f1e8",
+    url: "https://www.mheducation.com/highered/mhp/product/financial-crisis-free-market-cure-why-pure-capitalism-world-economy-s-only-hope.html",
+  },
+  {
+    title: "Thinking, Fast and Slow",
+    spineTitle: "THINKING, FAST AND SLOW",
+    author: "Daniel Kahneman",
+    spineAuthor: "DANIEL KAHNEMAN",
+    spineSubtitle: "WINNER OF THE NOBEL PRIZE IN ECONOMICS",
+    spinePublisher: "FSG",
+    spineDesign: "thinking-fast-slow",
+    spineWidth: 27,
+    cover: "/books/thinking-fast-and-slow.jpg",
+    coverWidth: 337,
+    coverHeight: 500,
+    spineColor: "#f5f3eb",
+    spineInk: "#171716",
+    url: "https://us.macmillan.com/books/9780374275631/thinkingfastandslow/",
+  },
 ];
 
 export default function Bookshelf() {
@@ -243,7 +307,8 @@ export default function Bookshelf() {
         <ul className="bookshelf-list" aria-label="Bookshelf">
           {books.map((book, index) => {
             const isOpen = index === open;
-            const lean = index % 2 === 0 ? 1.4 + index * 0.08 : -1.25 - index * 0.07;
+            const leanStep = (index % 3) * 0.12;
+            const lean = index % 2 === 0 ? 0.45 + leanStep : -0.45 - leanStep;
             return (
               <li
                 className="bookshelf-book"
