@@ -809,11 +809,11 @@ video.win-shot { background: var(--bg-2); }
   overflow: visible;
 }
 .bookshelf-list {
-  --shelf-scale: 1;
+  --shelf-scale: 1.2;
   --book-height: clamp(178px, 55vw, 210px);
   display: flex;
   align-items: flex-end;
-  gap: 1px;
+  gap: 4px;
   width: max-content;
   height: var(--book-height);
   margin: 0;
@@ -1369,6 +1369,7 @@ video.win-shot { background: var(--bg-2); }
   .bookshelf-list {
     --shelf-scale: 0.76;
     --book-height: 160px;
+    gap: 1px;
     padding-left: 4px;
     padding-right: 4px;
   }
