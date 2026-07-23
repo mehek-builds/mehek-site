@@ -117,6 +117,7 @@ async function measureWorkGrid(page) {
     return {
       count: cards.length,
       names: cards.map((card) => card.querySelector(".car-name")?.textContent?.trim() ?? ""),
+      hasSectionHeading: Boolean(document.querySelector("#flagships h2")),
       columns: new Set(rects.map((rect) => rect.x)).size,
       rows: new Set(rects.map((rect) => rect.y)).size,
       widths: new Set(rects.map((rect) => rect.width)).size,
@@ -163,6 +164,11 @@ async function checkWorkGrid(browser) {
   }
 
   const result = measured[0].result;
+  if (result.hasSectionHeading) {
+    fail("Work grid: the removed section-title block is still rendering.");
+  } else {
+    pass("Work grid: projects begin without a separate section-title block.");
+  }
   const expectedOrder = [
     "Litos",
     "BuildSmart",

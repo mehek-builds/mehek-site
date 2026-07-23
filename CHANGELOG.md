@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-23: Remove project-grid title
+
+- Removed the Highlight reel title block so the homepage moves directly from
+  the hero into the project grid.
+
 ## 2026-07-23: Project order refinement
 
 - Moved Traeco directly ahead of the Rufescent project in the homepage grid.

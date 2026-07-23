@@ -8,9 +8,8 @@
 // depends on the cursor, so it can never fragment mid-stroke the way bending
 // it in place did. A letter key reseeds it. Reduced-motion: a static figure,
 // moon parked.
-// The figure, the moon, and the trail tuning now live in lib/harmonograph (and
-// carry their rationale with them), because MoonTitle draws the same hand on
-// the reel's title and the two must never drift apart.
+// The figure, the moon, and the trail tuning live in lib/harmonograph so the
+// drawing behavior stays isolated from the hero component.
 import { useEffect, useRef } from "react";
 import { MAX_TRAIL, drawMoon, point, seed, strokeTrail } from "../lib/harmonograph";
 
