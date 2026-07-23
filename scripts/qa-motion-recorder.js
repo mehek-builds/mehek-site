@@ -116,6 +116,7 @@ async function measureWorkGrid(page) {
     const retiredBrand = ["role", "quick"].join("");
     return {
       count: cards.length,
+      names: cards.map((card) => card.querySelector(".car-name")?.textContent?.trim() ?? ""),
       columns: new Set(rects.map((rect) => rect.x)).size,
       rows: new Set(rects.map((rect) => rect.y)).size,
       widths: new Set(rects.map((rect) => rect.width)).size,
@@ -162,6 +163,19 @@ async function checkWorkGrid(browser) {
   }
 
   const result = measured[0].result;
+  const expectedOrder = [
+    "Litos",
+    "BuildSmart",
+    "Traeco",
+    "The Rufescent film",
+    "Earnings-drift trading system",
+    "Nourish",
+  ];
+  if (JSON.stringify(result.names) !== JSON.stringify(expectedOrder)) {
+    fail(`Work grid: unexpected project order ${JSON.stringify(result.names)}.`);
+  } else {
+    pass("Work grid: Traeco appears directly before the Rufescent project.");
+  }
   if (result.litosHref !== "https://trylitos.com" || result.oldBrandPresent) {
     fail(`Work grid: Litos identity is inconsistent (${JSON.stringify(result)}).`);
   } else {

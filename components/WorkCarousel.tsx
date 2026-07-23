@@ -38,6 +38,16 @@ const CARDS: Card[] = [
     video: "/work/buildsmart.mp4",
   },
   {
+    slug: "traeco",
+    name: "Traeco",
+    gloss:
+      "AI cost visibility for engineering teams: analyzes agent traces and shows exactly what to cut, giving you the cost and quality impact.",
+    url: "https://traeco.dev",
+    urlLabel: "traeco.dev",
+    poster: "/work/traeco.jpg",
+    video: "/work/traeco.mp4",
+  },
+  {
     slug: "rufescent",
     name: "The Rufescent film",
     gloss:
@@ -55,16 +65,6 @@ const CARDS: Card[] = [
     url: "https://pead-dashboard.vercel.app",
     urlLabel: "pead-dashboard.vercel.app",
     poster: "/work/pead.jpg",
-  },
-  {
-    slug: "traeco",
-    name: "Traeco",
-    gloss:
-      "AI cost visibility for engineering teams: analyzes agent traces and shows exactly what to cut, giving you the cost and quality impact.",
-    url: "https://traeco.dev",
-    urlLabel: "traeco.dev",
-    poster: "/work/traeco.jpg",
-    video: "/work/traeco.mp4",
   },
   {
     slug: "fitness-tracker",

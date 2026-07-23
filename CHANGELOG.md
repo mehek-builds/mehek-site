@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-07-23: Project order refinement
+
+- Moved Traeco directly ahead of the Rufescent project in the homepage grid.
+
 ## 2026-07-23: Responsive project grid and Litos consistency
 
 - Replaced the drifting project carousel with six equal project cards in a
