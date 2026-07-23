@@ -5,7 +5,6 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { COUNTS } from "../content/counts";
-import MoonTitle from "./MoonTitle";
 
 interface Card {
   slug: string; // receipt anchor
@@ -214,13 +213,7 @@ function ProductCard({ card }: { card: Card }) {
 
 export default function WorkCarousel() {
   return (
-    <section className="scene work-carousel" id="flagships" aria-label="Highlight reel">
-      {/* One oversized kinetic line, ink on paper: the eyebrow and the count
-          line both went (Mehek, 2026-07-16). The count claim is not lost, it
-          still lives in the hero and in the hint below. */}
-      <div className="wrap">
-        <MoonTitle text="Highlight reel" />
-      </div>
+    <section className="scene work-carousel" id="flagships" aria-label="Featured projects">
       <div className="wrap">
         <div className="car-grid">
           {CARDS.map((c) => (

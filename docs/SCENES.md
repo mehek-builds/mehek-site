@@ -26,15 +26,8 @@ are visible. A subtle 1.2-second entrance staggers across each row. The "plus N 
 in the receipts below" hint derives from `counts.ts`. Reduced motion: cards render
 immediately and videos rest on their posters.
 
-The section opens on `MoonTitle` ("Highlight reel"): the hero's moon, compressed to
-one line (Mehek, 2026-07-16). The eyebrow and the old "N shipped projects so far"
-line are both gone, so the scene is a single oversized kinetic line of ink on paper
-per the title-card rhythm. The figure, moon, and trail tuning are shared with the
-hero via `lib/harmonograph.ts`, so the two can never drift; only the amplitudes
-differ (a line of type is a wide, shallow box, so `ax`/`ay` split where the hero
-passes one amplitude twice). The ghost `<h2>` is the real server-rendered text and
-the lit layer is an aria-hidden duplicate masked to the moonlight. Reduced motion:
-full-ink title, no moon, no canvas.
+The project grid begins directly after the hero with no separate section title.
+The cards themselves provide the visual and information hierarchy.
 
 **THE GRID IS THE SHELF** (Mehek ruling, 2026-07-16, which amends the 2026-07-12
 curation directive): these six cards carry all card-level emphasis, so `Receipts`
