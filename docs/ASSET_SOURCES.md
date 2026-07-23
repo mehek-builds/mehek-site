@@ -1,5 +1,11 @@
 # Asset sources
 
+## University mark
+
+| File | Source |
+| --- | --- |
+| `public/usc-shield.png` | USC's official standalone shield from the [USC Brand and Identity Guidelines](https://identity.usc.edu/identity/logos-marks/) |
+
 ## Book covers
 
 Book-cover artwork is stored locally so the About page remains stable and fast.

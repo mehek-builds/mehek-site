@@ -85,10 +85,22 @@ export default function AboutBody() {
             rel="noreferrer"
             aria-label="Computer science at the University of Southern California"
           >
-            <span className="about-education-role">Computer science</span>
-            <span className="about-education-mark" aria-hidden="true">
-              USC
+            <span className="about-education-role">
+              Computer
+              <br />
+              {" "}science
             </span>
+            {/* USC's official shield, using the standalone mark rather than
+                inventing a badge around the university initials. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="about-education-mark"
+              src="/usc-shield.png"
+              alt=""
+              width="24"
+              height="24"
+            />
+            <span className="sr-only">USC</span>
             <span className="about-education-school">
               University of Southern California
             </span>

@@ -695,36 +695,31 @@ video.win-shot { background: var(--bg-2); }
    follows the reference treatment: field, school mark, institution. */
 .about-education {
   display: grid;
-  grid-template-columns: auto 32px minmax(0, 1fr);
+  grid-template-columns: 112px 24px minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
-  width: fit-content;
+  gap: 16px;
+  width: min(432px, 100%);
+  min-height: 56px;
   max-width: 100%;
-  margin-top: 28px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
+  margin-top: 22px;
   color: var(--text);
   text-decoration: none;
 }
 .about-education-role {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
   letter-spacing: 0.04em;
   color: var(--text-faint);
 }
 .about-education-mark {
-  display: inline-flex;
-  width: 32px;
-  height: 32px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.03em;
-  color: var(--text-dim);
-  transition: border-color 0.25s var(--ease-ui), color 0.25s var(--ease-ui);
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.72;
+  transition: filter 0.25s var(--ease-ui), opacity 0.25s var(--ease-ui);
 }
 .about-education-school {
   font-size: 0.96rem;
@@ -732,8 +727,8 @@ video.win-shot { background: var(--bg-2); }
 }
 .about-education:hover .about-education-mark,
 .about-education:focus-visible .about-education-mark {
-  border-color: var(--text);
-  color: var(--text);
+  filter: grayscale(0);
+  opacity: 1;
 }
 .about-education:focus-visible {
   outline: 2px solid var(--amber);
@@ -1471,10 +1466,10 @@ video.win-shot { background: var(--bg-2); }
   body { font-size: 16px; }
   .wrap { padding: 0 20px; }
   .about-education {
-    grid-template-columns: auto 28px minmax(0, 1fr);
-    gap: 10px;
+    grid-template-columns: 96px 24px minmax(0, 1fr);
+    gap: 12px;
   }
-  .about-education-mark { width: 28px; height: 28px; }
+  .about-education-role { font-size: 0.66rem; }
   .about-education-school { font-size: 0.88rem; }
   .receipt-grid { grid-template-columns: 1fr; }
   .about-bookshelf-head { display: block; }

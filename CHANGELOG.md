@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-07-23: Match the USC education treatment
+
+- Replaced the invented USC initials badge with the official USC shield.
+- Matched the reference row's fixed role column, 24px logo, 16px gutters, and
+  inward school-name alignment without importing its black visual theme.
+
 ## 2026-07-23: USC education line
 
 - Added one compact education row to the About page for computer science at the
